@@ -14,7 +14,7 @@
 
 .login-canvas .bg {
     background-image: url("images/bg-banner.jpg");
-    background-position: fixed;
+    background-position: center;
     background-size: cover;
     opacity: .08;
     position: absolute;

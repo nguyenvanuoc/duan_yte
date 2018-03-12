@@ -428,17 +428,17 @@ a:focus {
     vertical-align: middle
 }
 
-.check-action input:checked+.icon:before {
+.check-action input:checked ~ .icon:before {
     color: #43A047;
     content: "\ea2b";
     font-size: 10px
 }
 
-.check-action input[type="radio"]:checked+.icon {
+.check-action input[type="radio"]:checked ~ .icon {
     border-radius: 50%
 }
 
-.check-action input[type="radio"]:checked+.icon:before {
+.check-action input[type="radio"]:checked ~ .icon:before {
     content: "";
     position: absolute;
     top: 2px;
