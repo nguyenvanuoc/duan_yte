@@ -24,21 +24,26 @@
 </head>
 <body>
 
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top header">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <div style=" padding:5px 8px 5px 10px; ">
-                <label style="font-weight:bold; font-size: 18px; box-sizing:border-box; color:gray">HỆ THỐNG QUẢN LÝ PHÒNG KHÁM</label>
-                <div style="font-style:normal !important; font-weight:normal !important; font-size:15px; ">
-                    <p>@(_nsd.Ten==null? "":_nsd.Ten.ToString().ToUpper())</p>
+            <div class="logo">
+                <div class="image">
+                    <img src="~/Content/images/logo.svg" alt="">    
+                </div>
+                <div class="txt">
+                    <div class="subtitle">HỆ THỐNG QUẢN LÝ PHÒNG KHÁM</div>
+                    <div class="title">
+                        @(_nsd.Ten==null? "":_nsd.Ten.ToString().ToUpper())
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="navbar-collapse collapse" style="  margin-top:10px;  ">
+        <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 @foreach (DataRow item in tableMenuNgang.Rows)
                 {
@@ -50,11 +55,16 @@
                     </li>
                 }
             </ul>
-            <ul class="nav navbar-nav navbar-right" style="margin-top:5px; margin-right:6px;">
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw">
-                        </i>Xin chào : @_nsd.Tenhienthi  <i class="fa fa-caret-down"></i>
+                    <a class="user" data-toggle="dropdown" href="#">
+                        <p class="image">
+                            <img src="https://www.linkteachers.com/frontend/foundation/images/dummy_user/default_image.jpg" alt="">
+                        </p>
+                        <p class="username">
+                            @_nsd.Tenhienthi
+                        </p>
+                        <i class="down fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
@@ -73,10 +83,8 @@
             </ul>
         </div>
     </div>
-    <div class="body-content"  >
-       
+    <div class="body-content">
         @RenderBody()
-        <hr />
         <footer>
             <p>&copy; 2018 - quannm</p>
         </footer>
