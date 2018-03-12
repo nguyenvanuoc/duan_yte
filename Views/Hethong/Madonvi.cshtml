@@ -1,0 +1,366 @@
+﻿@model Pkham.Data.Model.Donvi
+
+@{
+    ViewBag.Title = "Madonvi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style rel="stylesheet" type="text/css">
+
+    .slick-header-column.ui-state-default {
+    }
+</style>
+
+
+<br />
+<div class="row" style="margin-top:10px;">
+    <div class="col-sm-3 col-md-2" style="padding-right:0px !important; padding-left:10px !important;">
+        @Html.Partial("Leftmenu")
+    </div>
+    <div class="col-sm-9 col-md-10" style="">
+        <button type="button" class="btn btn-default" onclick="return Themdonvi('');">
+            <i class="glyphicon glyphicon-plus  "></i> Thêm mới đơn vị
+        </button>
+        <br />
+        <br />
+        <div id="dsDonVi" style="width:100%; height:380px; border: 1px dotted #808080 "
+             class="slickgrid-word-wrap">
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="modal bootstrap-dialog type-primary fade size-normal in" id="myModal" role="dialog" aria-labelledby="Thông tin đơn vị" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog" style="width: 600px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Thông tin đơn vị</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container" id="donvi" style="max-width: 600px;">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
+                                    Mã đơn vị
+                                </label>
+                                <div class="controls col-md-10 " style="margin-bottom: 10px;">
+                                    <input class="input-md  textinput textInput form-control" id="Madvi" style="width:150px" autofocus
+                                           placeholder="Thông tin tên đơn vị" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
+                                    Mã quản lý
+                                </label>
+                                <div class="controls col-md-10" style="margin-bottom: 10px;">
+                                    <select class="form-control" id="Mact" style="width:450px;"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
+                                    Tên đơn vị
+                                </label>
+                                <div class="controls col-md-10" style="margin-bottom: 10px;">
+                                    <input class="input-md  textinput textInput form-control" id="Ten"
+                                           placeholder="Thông tin tên đơn vị" type="text" style="width:450px" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
+                                    Địa chỉ
+                                </label>
+                                <div class="controls col-md-10" style="margin-bottom: 10px;">
+                                    <input class="input-md  textinput textInput form-control" id="Diachi"
+                                           placeholder="Thông tin địa chỉ đơn vị" type="text" style="width:450px" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
+                                    SĐT
+                                </label>
+                                <div class="controls col-md-10" style="margin-bottom: 10px;">
+                                    <input class="input-md  textinput textInput form-control" id="Sdt"
+                                           placeholder="Số điện thoại" type="text" style="width:450px" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
+                                    Giám đốc
+                                </label>
+                                <div class="controls col-md-10 col-sm-10" style="margin-bottom: 10px;">
+                                    <input class="input-md  textinput textInput form-control" id="Giamdoc"
+                                           placeholder="Giám đốc" type="text" style="width:450px" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
+                                    KTT
+                                </label>
+                                <div class="controls col-md-10" style="margin-bottom: 10px;">
+                                    <input class="input-md  textinput textInput form-control" id="Ktt"
+                                           placeholder="Kế toán trưởng" type="text" style="width:450px" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
+                                    Theo dõi
+                                </label>
+                                <div class="controls col-md-10 co-sm-10 col-lg-10" style="margin-bottom: 10px;">
+                                    <input class="checkbox" id="Active" checked="checked"
+                                           placeholder="Số điện thoại" type="checkbox" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="controls col-md-10 co-sm-10 col-lg-10" style="margin-bottom: 10px;">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-md-3">
+                                            <a href="#" class="thumbnail" style="height:70px;">
+                                                <img src="#" id="img" alt="Ảnh đại diện"  style="width:70px; height:60px;">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" hotkey="F3" id="saveData" class="btn btn-default"><i class="fa fa-plus  "></i> Lưu lại(F3)</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                <i class="glyphicon glyphicon-share-alt"></i> Đóng lại
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<input type="file" id="file" style="display:none" />
+
+<script type="text/javascript">
+    var grid;
+    var b_so_id = "";
+    var data = "";
+    var b_file_anh="";
+    var columns = [
+        { id: "Madvi", name: "Mã đơn vị", field: "Madvi", width: 200 },
+        { id: "Ten", name: "Tên đơn vị", field: "Ten", width: 330 },
+        { id: "Diachi", name: "Địa chỉ", field: "Diachi", width: 300 },
+        { id: "Sdt", name: "Số điện thoại", field: "Sdt", width: 175 },
+        { id: "thaotac", name: "Thao tác", width: 70, formatter: editRow },
+    ];
+
+
+    var gridDonvi = new gridView("#dsDonVi", columns);
+
+    $(function () {
+        var config = {
+            pageSize: 13,
+            paging: "node",
+            page: {
+                maxNode: 4,
+                showInfo: true
+            }
+        };
+
+
+        gridDonvi.config = config;
+
+        Loadthongtindonvi();
+
+
+    });
+
+    function binDataGrid(b_kq) {
+        data = b_kq;
+        gridDonvi.dataBin(b_kq);
+
+        var a_data_drop = [];
+        var item = {};
+        var i = 0;
+
+        $.each(b_kq, function (index, val) {
+            if (val.ma != "") {
+                item = { MA: val.ma, TEN: val.Ten };
+
+                a_data_drop[i] = item;
+                i++;
+            }
+
+        });
+
+        dataBinDrop("#Mact", a_data_drop);
+    }
+
+    function Loadthongtindonvi() {
+        Emcsoft.Msg.wait();
+        $.getJSON("@Core.Constants.Config.GetBaseUrl()api/Danhmuc/Danhsachdonvi").done(function (b_kq) {
+            Emcsoft.Msg.stopWait();
+
+            gridDonvi.data = data = b_kq;
+            gridDonvi.init();
+
+            var a_data_drop = [];
+            var item = {};
+            var i = 0;
+
+            $.each(b_kq, function (index, val) {
+                if (val.ma != "") {
+                    item = { MA: val.ma, TEN: val.Ten };
+
+                    a_data_drop[i] = item;
+                    i++;
+                }
+
+            });
+
+            dataBinDrop("#Mact", a_data_drop);
+
+        }).fail(function (b_kq) {
+            Emcsoft.Msg.stopWait();
+            Emcsoft.Msg.show("Có lỗi khi liệt kê thông tin: Chi tiết lỗi " + b_kq.responseJSON.Message);
+        });
+    }
+
+
+    function editRow(row, cell, value, columnDef, dataContext) {
+        //debugger;
+        var html = "<div onmouseover=\"this.style.cursor='pointer' \"  style='width: 99%; padding-left:3px; text-align:center;'><div class='col-sm-6 col-md-6 col-lg-6'>";
+        html += " <span class='glyphicon glyphicon-remove' onclick='xoadonvi(\"" + dataContext.ma +"\")'><span> </div> ";
+        html += " <div class='col-sm-6 col-md-6 col-lg-6'  style=\"padding-left: 5px !important; \"> ";
+        html += "   <span class='fa fa-pencil-square-o  ' onclick='Themdonvi(\"" + dataContext.ma+"\")'><span></div ></div > ";
+        return value == ""  ?"": html;
+    }
+
+    function Themdonvi(id) {
+        //debugger;
+        var item = $.grep(data, function (val, index) {
+            return val.ma == id;
+        });
+        if (item.length > 0) {
+            SetValues("donvi", item[0]);
+
+            $("#Madvi").val(item[0].ma);
+            $("img").attr("src", "../Images/" + item[0].Url);
+        }
+        else {
+            ResetForm("donvi");
+            $("#Madvi").focus();
+        }
+
+        $("#myModal").modal('show');
+        $("button[hotkey], input[hotkey]").attr("disableKey", "C");
+    }
+
+    $(".thumbnail").click(function () {
+        var b_dvi = $("#Madvi").val();
+        if (b_dvi == "") {
+            Emcsoft.Msg.show("Chưa chọn đơn vị");
+            return;
+        }
+        $('#file').trigger('click');
+    });
+
+     $("#file").on('change', function () {
+
+        var file;
+        if ((file = this.files[0])) {
+
+
+            var data = new FormData();
+
+            var files = $("#file").get(0).files;
+
+            if (files.length > 0) {
+                data.append("UploadedImage", files[0]);
+            }
+
+            var ajaxRequest = $.ajax({
+                type: "POST",
+                url: "@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/UploadAnh",
+                contentType: false,
+                processData: false,
+                data: data
+            });
+
+            ajaxRequest.fail(function(a, b)
+            {
+                Emcsoft.Msg.show("File upload không thành công. Chi tiết "+ a.responseJSON.Message);
+
+            });
+
+            ajaxRequest.done(function (responseData, textStatus) {
+                if (textStatus == 'success') {
+                    $("img").attr("src", "../Images/" + responseData);
+                    b_file_anh = responseData;
+                }
+            });
+        }
+    });
+
+    $("#saveData").click(function () {
+
+        var dulieu = GetValues("donvi");
+        if (!dulieu) {
+            return false;
+        }
+        Emcsoft.Msg.wait();
+
+        dulieu.Url= b_file_anh;
+
+        $.ajax({
+            url: "@Core.Constants.Config.GetBaseUrl()api/Danhmuc/NhapThongTinDonVi",
+            type: "POST",
+            data: JSON.stringify(dulieu),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            global: false,
+            success: function (b_kq) {
+                if (CheckError(b_kq)) {
+                    ShowError(b_kq);
+                    return;
+                }
+
+                binDataGrid(b_kq);
+                Emcsoft.Msg.stopWait();
+                Emcsoft.Msg.show("Thêm thành công");
+            }, error: function (xhr, err) {
+                Emcsoft.Msg.stopWait();
+                Emcsoft.Msg.Warning(xhr.responseJSON.Message);
+            }
+
+        });
+    });
+
+
+    function xoadonvi(madvi) {
+
+        BootstrapDialog.confirm('Bạn có chắc chắn xóa không ?', function (result) {
+            if (!result)
+                return;
+            debugger;
+            if (Emcsoft.Common.isNullOrEmty(madvi)) {
+            Emcsoft.Msg.show("Chưa chọn đơn vị xóa");
+                    return;
+                }
+
+
+            $.post("@Core.Constants.Config.GetBaseUrl()api/Danhmuc/XoaDonVi", { "": madvi })
+                    .done(function (b_kq) {
+                        if (CheckError(b_kq)) {
+                            ShowError(b_kq);
+                            return;
+                        }
+
+                        binDataGrid(b_kq);
+                        Emcsoft.Msg.stopWait();
+                    })
+                .fail(function (b_kq) {
+                    Emcsoft.Msg.stopWait();
+                    Emcsoft.Msg.show("Có lỗi khi liệt kê thông tin: Chi tiết lỗi " + b_kq.responseJSON.Message);
+                    });
+            });
+    }
+
+</script>

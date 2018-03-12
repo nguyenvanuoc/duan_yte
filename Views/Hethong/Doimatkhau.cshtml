@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Quên mật khẩu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row"  style="margin-top:10px;">
+    <div class="col-sm-3 col-md-2" style="padding-right:0px !important; padding-left:10px !important;">
+        @Html.Partial("Leftmenu")
+    </div>
+    <div class="col-sm-9 col-md-10 ">
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="col-md-7 col-lg-offset-2">
+                    <div class="form-group">
+                        <label class="control-label col-md-3" style="font-weight:normal !important; float:left !important; margin-top:5px; ">
+                            Mật khẩu cũ
+                        </label>
+                        <div class="controls col-md-9" style="margin-bottom: 10px;">
+                            <input class="input-md  textinput textInput form-control" id="txtOldPas"
+                                   placeholder="Thông tin mật khẩu cũ" type="password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" style="font-weight:normal !important; float:left !important; margin-top:5px; ">
+                            Mật khẩu mới
+                        </label>
+                        <div class="controls col-md-9" style="margin-bottom: 10px;">
+                            <input class="input-md  textinput textInput form-control" id="txtPas"
+                                   placeholder="Mật khẩu mới" type="password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3" style="font-weight:normal !important; float:left !important; margin-top:5px; ">
+                            Xác nhận
+                        </label>
+                        <div class="controls col-md-9" style="margin-bottom: 10px;">
+                            <input class="input-md  textinput textInput form-control" id="txtRePas"
+                                   placeholder="Gõ lại mật khẩu mới" type="password" />
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top:10px; margin-right:9px; box-sizing:content-box; float:right;">
+                        <button type="button" id="doimatkhau" class="btn btn-default"><i class="fa fa-plus  "></i> Đổi mật khẩu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+        $("#doimatkhau").click(function () {
+            var b_mk = $("#txtOldPas").val(), b_pasmoi = $("#txtPas").val(), b_pasGolai = $("#txtRePas").val();
+
+            if (b_mk == "") {
+                Msg.warning("Phải nhật mật khẩu cũ");
+                return false;
+            }
+            if (b_pasmoi == "") {
+                Msg.warning("Phải nhật mật khẩu mới");
+                return false;
+            }
+            if (b_pasGolai == "") {
+                Msg.warning("Phải nhật xác nhận mật khẩu mới");
+                return false;
+            }
+            if (b_pasGolai != b_pasmoi) {
+                Msg.warning("Mật khẩu cũ và mật khẩu mới không khớp");
+                return false;
+            }
+            debugger;
+            var a_data = { ID: b_mk, Ten: b_pasmoi, Ma_ct: b_pasGolai } ;
+            var b_url = "@Core.Constants.Config.GetBaseUrl()/api/Hethong/Doimatkhau";
+            $.ajax({
+                url: b_url,
+                type: "POST",
+                data: JSON.stringify(a_data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                global: false,
+                success: function (result) {
+                    waitingDialog.hide();
+                    Msg.Warning("Lưu thành công");
+                },
+                error: function (xhr, err) {
+
+                    waitingDialog.hide();
+                    Msg.Warning(xhr.responseJSON.Message);
+
+                }
+            });
+
+        });
+
+</script>
+
+

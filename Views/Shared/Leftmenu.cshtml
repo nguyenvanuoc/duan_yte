@@ -1,0 +1,48 @@
+﻿@using System.Data;
+@using Pkham.Data.Model;
+
+@{
+    DataTable tableDM = new DataTable();
+
+    Nguoisudung _nsd = (Session["USER_SESSION"] == null ? new Nguoisudung() : (Nguoisudung)Session["USER_SESSION"]);
+
+    Pkham.Data.Hethong hethong = new Pkham.Data.Hethong();
+
+    if (!string.IsNullOrEmpty(_nsd.nsd))
+    {
+        tableDM = hethong.DsMenudoc(_nsd.nsd, ViewBag.ID);
+    }
+
+}
+
+ 
+<div class="list-group">
+    <span class="list-group-item active" style="text-align:center;">
+        @switch (ViewBag.ID)
+        {
+            case "Danhmuc":
+                {
+                    <label>Danh mục</label>
+                    break;
+                }
+            case "Hethong":
+                {
+                    <label>Hệ thống</label>
+                    break;
+                }
+            default:
+                break;
+        }
+        <span class="pull-right" id="slide-submenu">
+        </span>
+    </span>
+
+
+    @foreach (DataRow rw in tableDM.Rows)
+    {
+        <a href="@Url.Action(rw["url"].ToString(), rw["Modun"].ToString())" class="list-group-item">
+            <i class="@rw["icon"]"></i> @rw["ten"].ToString()
+        </a>
+    }
+
+</div>
