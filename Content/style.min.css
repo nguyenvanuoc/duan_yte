@@ -401,6 +401,9 @@ a:focus {
   height: 56px;
   background: #0288D1;
 }
+.header .navbar-right {
+  margin-right: 0px;
+}
 .header .logo {
   background: rgba(0, 0, 0, 0.1);
   position: relative;
@@ -434,7 +437,7 @@ a:focus {
 }
 .header .user {
   color: #fff !important;
-  padding: 0px !important;
+  padding: 18px 0px !important;
   padding-left: 40px !important;
   position: relative;
   padding-right: 5px !important;
@@ -450,7 +453,6 @@ a:focus {
   max-width: 150px;
   overflow: hidden;
   white-space: nowrap;
-  margin-top: 15px;
   display: inline-block;
   vertical-align: middle;
   text-overflow: ellipsis;
