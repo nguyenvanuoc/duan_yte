@@ -507,14 +507,16 @@ a:focus {
 
         }
     }
-    .navbar-default .navbar-nav>li>a{
-        color: #fff;
+    .navbar-nav>li>a{
+        color: #fff !important;
+        padding: 18px 20px;
     }
     .user{
-        color: #fff;
-        padding-left: 40px;
+        color: #fff !important;
+        padding: 0px !important;
+        padding-left: 40px !important;
         position: relative;
-        padding-right: 20px;
+        padding-right: 5px !important;
 
         .avatar{
             position: absolute;
@@ -529,20 +531,21 @@ a:focus {
             overflow:hidden;
             white-space: nowrap;
             margin-top: 15px;
+            display: inline-block;
+            vertical-align: middle;
             text-overflow: ellipsis;
 
         }
         .down{
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            margin: auto;
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            line-height: 30px;
-            text-align: center;
+            display: inline-block;
+            color: #fff;
         }
 
     }
+}
+.body-content{
+    padding: 0px;
+    padding-top: 56px;
+    
+
 }
