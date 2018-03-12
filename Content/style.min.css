@@ -1,4 +1,3 @@
-@import url(animate.min.css);
 .borderbox {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -342,7 +341,9 @@ body,
     overflow-x: hidden;
     text-align: justify;
     font-weight: normal;
-    background: #f5f8fd
+    background: #f5f8fd;
+    padding-top: 0px;
+    margin-top: 0px;
 }
 
 a:hover,
