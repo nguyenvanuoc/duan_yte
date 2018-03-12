@@ -448,32 +448,101 @@ a:focus {
     right: 2px;
     background: #43A047
 }
+.avatar{
+    width: 32px;
+    height: 32px;  
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    &.-x16{
+        width: 16px;
+        height: 16px;
+        
+    }
+    &.-x48{
+        width: 48px;
+        height: 48px;
+        
+    }
+    &.-x64{
+        width: 64px;
+        height: 64px;
 
+    }
+
+}
 .header{
     border-bottom: 0px;
-    height: 55px;
+    height: 56px;
     background: #0288D1;
     .logo{
-        background: fade(#000,0.1);
-        padding-right: 50px;
+        background: fade(#000,10);
         position: relative;
         color: #fff;
+        padding: 2px 10px;
+        padding-left: 56px;
 
         .image{
             position: absolute;
-            top: 10px;
+            top: 5px;
             left: 0px;
-            height: 40px;
+            img{
+                display: inline-block;
+                height: 45px;
+            }
 
 
+        }
+        .txt{
+            padding: 5px 0px;
         }
         .subtitle{
             font-size: 15px;
+            margin-bottom: 2px;
         }
         .title{
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
-            
+
         }
+    }
+    .navbar-default .navbar-nav>li>a{
+        color: #fff;
+    }
+    .user{
+        color: #fff;
+        padding-left: 40px;
+        position: relative;
+        padding-right: 20px;
+
+        .avatar{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            bottom: 0px;
+            margin: auto;
+
+        }
+        .username{
+            max-width: 150px;
+            overflow:hidden;
+            white-space: nowrap;
+            margin-top: 15px;
+            text-overflow: ellipsis;
+
+        }
+        .down{
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            margin: auto;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            line-height: 30px;
+            text-align: center;
+        }
+
     }
 }
