@@ -12,19 +12,14 @@
     }
 </style>
 
-<div class="row" style="margin-top:10px;">
-    <div class="col-sm-3 col-md-2" style="padding-right:0px !important; padding-left:10px !important;">
-        @Html.Partial("Leftmenu")
-    </div>
-    <div class="col-sm-9 col-md-10" style="">
-        <button type="button" class="btn btn-default" onclick="return Themdonvi('');">
-            <i class="glyphicon glyphicon-plus  "></i> Thêm mới đơn vị
-        </button>
-        <br />
-        <br />
-        <div id="dsDonVi" style="width:100%; height:380px; border: 1px dotted #808080 "
-             class="slickgrid-word-wrap">
-        </div>
+<div class="sidebar-menu">
+    @Html.Partial("Leftmenu")
+</div>
+<div class="main-content">
+    <button type="button" class="btn btn-success" onclick="return Themdonvi('');">
+        <i class="glyphicon glyphicon-plus  "></i> Thêm mới đơn vị
+    </button>
+    <div id="dsDonVi" class="slickgrid-word-wrap">
     </div>
 </div>
 
@@ -37,7 +32,7 @@
                     <h4 class="modal-title">Thông tin đơn vị</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="container" id="donvi" style="max-width: 600px;">
+                    <div id="donvi">
                         <div class="row">
                             <div class="form-group">
                                 <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
@@ -122,13 +117,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" hotkey="F3" id="saveData" class="btn btn-default"><i class="fa fa-plus  "></i> Lưu lại(F3)</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                <i class="glyphicon glyphicon-share-alt"></i> Đóng lại
-                            </button>
-                        </div>
+                        
                     </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" hotkey="F3" id="saveData" class="btn btn-primary"><i class="fa fa-plus  "></i> Lưu lại(F3)</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-share-alt"></i> Đóng lại
+                    </button>
                 </div>
             </div>
         </div>

@@ -513,6 +513,33 @@ a:focus {
     .navbar-nav>li>a{
         color: #fff !important;
         padding: 18px 20px;
+        opacity: 0.8;
+
+    }
+    .navbar-nav>li{
+        &:hover{
+            >a{
+                
+                opacity: 1;
+            }
+
+        }
+        &.active{
+            >a{
+                
+                opacity: 1;
+                font-weight: bold;
+            }            
+        }
+        &.open{
+            >a{
+                &:focus,&:hover{
+                    background: fade(#000,10);
+                }
+            }
+            
+        }
+        
     }
     .user{
         color: #fff !important;

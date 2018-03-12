@@ -434,6 +434,18 @@ a:focus {
 .header .navbar-nav > li > a {
   color: #fff !important;
   padding: 18px 20px;
+  opacity: 0.8;
+}
+.header .navbar-nav > li:hover > a {
+  opacity: 1;
+}
+.header .navbar-nav > li.active > a {
+  opacity: 1;
+  font-weight: bold;
+}
+.header .navbar-nav > li.open > a:focus,
+.header .navbar-nav > li.open > a:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
 .header .user {
   color: #fff !important;
