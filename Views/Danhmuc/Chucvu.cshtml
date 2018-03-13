@@ -62,8 +62,8 @@
     var gridCV;
 
     var columns = [
-        { id: "Ten", name: "Tên chức vụ", field: "Ten", width: 890 }, 
-        { id: "thaotac", name: "Thao tác", width: 200, formatter: editRow }
+        { id: "Ten", name: "Tên chức vụ", field: "Ten"}, 
+        { id: "thaotac", name: "Thao tác", formatter: editRow }
     ];
 
     $(document).ready(function () {
@@ -92,9 +92,9 @@
 
 
     function editRow(row, cell, value, columnDef, dataContext) {
-        var html = "<div onmouseover=\"this.style.cursor='pointer' \"  style='width: 99%; padding-left:3px; text-align:center;'><div class='col-sm-6 col-md-6 col-lg-6'>";
+        var html = "<div onmouseover=\"this.style.cursor='pointer' \"><div class='btn btn-default'>";
         html += " <span class='glyphicon glyphicon-remove' onclick='XoaCV(\"" + dataContext.Ma + "\")'><span> </div> ";
-        html += " <div class='col-sm-6 col-md-6 col-lg-6'  style=\"padding-left: 5px !important; \"> ";
+        html += " <div class='btn btn-default'";
         html += "   <span class='fa fa-pencil-square-o  ' onclick='ThemCV(\"" + dataContext.Ma + "\")'><span></div ></div > ";
         return value == "" ? "" : html;
     }
