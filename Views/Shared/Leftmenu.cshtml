@@ -16,8 +16,8 @@
 }
 
  
-<div class="list-group">
-    <span class="list-group-item active" style="text-align:center;">
+<div class="menus">
+    <span class="title">
         @switch (ViewBag.ID)
         {
             case "Danhmuc":
@@ -33,14 +33,14 @@
             default:
                 break;
         }
-        <span class="pull-right" id="slide-submenu">
+        <span id="slide-submenu">
         </span>
     </span>
 
 
     @foreach (DataRow rw in tableDM.Rows)
     {
-        <a href="@Url.Action(rw["url"].ToString(), rw["Modun"].ToString())" class="list-group-item">
+        <a href="@Url.Action(rw["url"].ToString(), rw["Modun"].ToString())" class="item">
             <i class="@rw["icon"]"></i> @rw["ten"].ToString()
         </a>
     }
