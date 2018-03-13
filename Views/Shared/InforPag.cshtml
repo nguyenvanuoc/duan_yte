@@ -1,92 +1,217 @@
-﻿
+﻿@Scripts.Render("~/Scripts/highchart.js");
+<div class="dashboard-canvas">
     <div class="row">
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-file-o fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">0</div>
-                            <div>Số lượt khám</div>
-                        </div>
-                    </div>
+            <div class="item">
+                <div class="detail">
+                    <span class="txt">Số lượt khám</span>
+                    <span class="number">0</span>
                 </div>
-                <a href="#">
-                    <div class="panel-footer">
-                        <a class="pull-left" href="#">Xem chi tiết</a>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
+                <div class="icon">
+                    <i class="fa fa-file-o"></i>
+                </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-green">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-share-square-o  fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">0</div>
-                            <div>Khám xong</div>
-                        </div>
-                    </div>
+            <div class="item">
+                <div class="detail">
+                    <span class="txt">Khám xong</span>
+                    <span class="number">0</span>
                 </div>
-                <a href="#">
-                    <div class="panel-footer">
-                        <a class="pull-left" href="#">Xem chi tiết</a>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
+                <div class="icon">
+                    <i class="fa fa-share-square-o"></i>
+                </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-yellow">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-pencil-square-o fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">0</div>
-                            <div>Chờ khám</div>
-                        </div>
-                    </div>
+            <div class="item">
+                <div class="detail">
+                    <span class="txt">Chờ khám</span>
+                    <span class="number">0</span>
                 </div>
-                <a href="#">
-                    <div class="panel-footer">
-                        <a class="pull-left" href="#">Xem chi tiết</a>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
+                <div class="icon">
+                    <i class="fa fa-pencil-square-o"></i>
+                </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-red">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-support fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <div class="huge">0 </div>
-                            <div>Khám lại</div>
-                        </div>
-                    </div>
+            <div class="item">
+                <div class="detail">
+                    <span class="txt">Khám lại</span>
+                    <span class="number">0</span>
                 </div>
-                <a href="#">
-                    <div class="panel-footer">
-                        <a class="pull-left" href="#">Xem chi tiết</a>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
+                <div class="icon">
+                    <i class="fa fa-support"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dashboard-canvas">
+    <div class="row">
+        <div class="col-sm-8 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="pull-left title">
+                        Thống kê số lượng bệnh nhân    
                     </div>
-                </a>
+                    <div class="pull-right">
+                        <div class="dropdown select-dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Theo tháng
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Tháng này</a></li>
+                                <li><a href="#">Năm nay</a></li>
+                                <li><a href="#">Hôm nay</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="panel-body">
+                    <div id="chart-bar" style="height:320px;"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="title">
+                        Thống kê doanh số trung tâm   
+                    </div>
+                    
+                    
+                </div>
+                <div class="panel-body">
+                    <div id="chart-circle" style="height:320px;"></div>
+                </div>
+
             </div>
         </div>
     </div>
 
+</div>
+<script>
+    $(document).ready(function () {
+        Highcharts.chart('chart-circle', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+                marker: {
+                    symbol: 'square'
+                },
+                
+            },
+            title: {
+                text: null,
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    innerSize: '60%',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true,
+
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                
+                data: [{
+                    name: 'Y đa khoa',
+                    y: 56.33,
+                    color:"#d1d5dd",
+                }, {
+                    name: 'Y tế cộng đồng',
+                    y: 24.03,
+                    color:"#3c8cbb",
+                }, {
+                    name: 'Y học dân tộc ',
+                    y: 10.38,
+                    color:"#f46954",
+                }, {
+                    name: 'Răng hàm mắt',
+                    y: 4.77,
+                    color:"#06bfee",
+                }, {
+                    name: 'Tai mũi họng',
+                    y: 0.91,
+                    color:"#00a55b",
+                }, {
+                    name: 'Nhi',
+                    y: 0.2,
+                    color:"#f29b1a",
+                }],
+            }]
+        });
+        Highcharts.chart('chart-bar', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: null,
+            },
+            subtitle: {
+                text: null,
+            },
+            xAxis: {
+                categories: [
+                    '2013',
+                    '2014',
+                    '2015',
+                    '2016',
+                    '2017'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: null
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Bác sỹ nhà nước',
+                data: [49.9, 71.5, 106.4, 129.2, 144.0],
+                color:'#4995c1'
+
+            }, {
+                name: 'Bác sỹ tư nhân',
+                data: [83.6, 78.8, 98.5, 93.4, 106.0],
+                color:'#d1d5dd'
+
+            }]
+        });
+    });
+    
+</script>
