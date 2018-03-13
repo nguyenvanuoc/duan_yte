@@ -485,6 +485,22 @@ a:focus {
   left: 0px;
   width: 220px;
   z-index: 2;
+  padding: 20px 0px;
+}
+.sidebar-menu .title {
+  font-size: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.sidebar-menu .menus .item {
+  display: block;
+  color: #333;
+  padding: 7px 10px;
+  border-top: 1px solid #ddd;
+}
+.sidebar-menu .menus .item > i {
+  width: 16px;
+  margin-right: 5px;
 }
 .main-content {
   padding: 20px;
@@ -494,6 +510,7 @@ a:focus {
   top: 56px;
   bottom: 0px;
   right: 0px;
+  overflow-y: auto;
 }
 .main-content:before {
   content: "";
@@ -503,14 +520,14 @@ a:focus {
   width: 220px;
   left: 0px;
   background: #fff;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.05);
 }
 footer {
   text-align: center;
   padding: 20px;
   position: absolute;
-  top: 0px;
+  bottom: 0px;
   right: 0px;
-  left: 0px;
   left: 240px;
 }
