@@ -560,4 +560,7 @@ footer {
   font-size: 18px;
   color: #fff;
 }
+.control-label {
+  padding-top: 5px;
+}
 /*Dashboard*/

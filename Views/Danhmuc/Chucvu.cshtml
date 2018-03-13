@@ -14,8 +14,7 @@
     <button type="button" class="btn btn-success" onclick="return ThemCV('');">
         <i class="glyphicon glyphicon-plus  "></i> Thêm mới chức vụ
     </button>
-    <div id="dsChucvu"
-        class="slickgrid-word-wrap">
+    <div id="dsChucvu" class="slickgrid-word-wrap" style="height:320px;border:1px solid #ddd;background:#fff;overflow:auto;">
     </div>
 </div>
 
@@ -30,10 +29,10 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group">
-                            <label class="control-label col-sm-2 col-xs-12">
+                            <label class="control-label col-sm-3 col-xs-12">
                                 Tên chức vụ
                             </label>
-                            <div class="controls col-sm-10 col-xs-12">
+                            <div class="controls col-sm-9 col-xs-12">
                                 <input class="input-md  textinput textInput form-control" id="Ten" autofocus placeholder="Thông tin tên chức vụ" type="text" />
                             </div>
                         </div>
@@ -51,15 +50,20 @@
     </div>
 </form>
 
-
+<script type="text/javascript">
+    $(".navbar-collapse .navbar-nav > li").setActive(1);
+</script>
+<script type="text/javascript">
+    $(".sidebar-menu .menus > .item").setActive(6);
+</script>
 <script type="text/javascript">
     var b_so_id = "";
     var data = {};
     var gridCV;
 
     var columns = [
-        { id: "Ten", name: "Tên chức vụ", field: "Ten", width: 890 }, 
-        { id: "thaotac", name: "Thao tác", width: 200, formatter: editRow }
+        { id: "Ten", name: "Tên chức vụ", field: "Ten"}, 
+        { id: "thaotac", name: "Thao tác", formatter: editRow }
     ];
 
     $(document).ready(function () {
@@ -88,9 +92,9 @@
 
 
     function editRow(row, cell, value, columnDef, dataContext) {
-        var html = "<div onmouseover=\"this.style.cursor='pointer' \"  style='width: 99%; padding-left:3px; text-align:center;'><div class='col-sm-6 col-md-6 col-lg-6'>";
+        var html = "<div onmouseover=\"this.style.cursor='pointer' \" ><div class='btn btn-default'>";
         html += " <span class='glyphicon glyphicon-remove' onclick='XoaCV(\"" + dataContext.Ma + "\")'><span> </div> ";
-        html += " <div class='col-sm-6 col-md-6 col-lg-6'  style=\"padding-left: 5px !important; \"> ";
+        html += " <div class='btn btn-default' ;
         html += "   <span class='fa fa-pencil-square-o  ' onclick='ThemCV(\"" + dataContext.Ma + "\")'><span></div ></div > ";
         return value == "" ? "" : html;
     }
