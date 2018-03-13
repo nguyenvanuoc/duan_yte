@@ -439,10 +439,8 @@ a:focus {
 .header .navbar-nav > li:hover > a {
   opacity: 1;
 }
-.header .navbar-nav > li.active {
-  background: rgba(0, 0, 0, 0.1);
-}
 .header .navbar-nav > li.active > a {
+  background: rgba(0, 0, 0, 0.1);
   opacity: 1;
   font-weight: bold;
 }
