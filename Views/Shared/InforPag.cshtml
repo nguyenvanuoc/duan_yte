@@ -54,7 +54,7 @@
 <div class="dashboard-canvas">
     <div class="row">
         <div class="col-sm-8 col-xs-12">
-            <div class="panel panel-default">
+            <div class="panel">
                 <div class="panel-heading">
                     <div class="pull-left title">
                         Thống kê số lượng bệnh nhân    
@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="col-sm-4 col-xs-12">
-            <div class="panel panel-default">
+            <div class="panel">
                 <div class="panel-heading">
                     <div class="title">
                         Thống kê doanh số trung tâm   
@@ -98,7 +98,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        Highcharts.chart('chart-circle', {
+        $("#chart-circle").highcharts({
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -161,7 +161,7 @@
                 }],
             }]
         });
-        Highcharts.chart('chart-bar', {
+        $("#chart-bar").highcharts({
             chart: {
                 type: 'column'
             },

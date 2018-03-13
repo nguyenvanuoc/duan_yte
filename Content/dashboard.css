@@ -4,15 +4,17 @@
 }
 .dashboard-canvas.statistics .item {
   background: #fff;
-  box-shadow: 0px 1px 3px rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.08);
   position: relative;
   height: 80px;
-  padding: 10px;
+  padding: 10px 20px;
 }
 .dashboard-canvas.statistics .item .detail .txt {
   font-size: 14px;
   opacity: 0.7;
   margin-bottom: 5px;
+  display: block;
 }
 .dashboard-canvas.statistics .item .detail .number {
   font-size: 24px;
@@ -23,7 +25,7 @@
   top: 5px;
   right: 5px;
   bottom: 5px;
-  width: 40px;
+  width: 60px;
   border-radius: 2px;
   text-align: center;
   line-height: 70px;
@@ -51,9 +53,11 @@
 .dashboard-canvas.statistics .item.c-green .number {
   color: #4CAF50;
 }
-.dashboard-canvas.statistics .item .icon {
+.dashboard-canvas.statistics .item.c-green .icon {
   background: #4CAF50;
 }
 .dashboard-canvas .panel .panel-heading .title {
-  font-size: bold;
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 12px;
 }
