@@ -14,7 +14,7 @@
     </button>
     <div class="row">
         <div class="col-md-12">
-            <div id="dsLoaiThuoc" class="slickgrid-word-wrap">
+            <div id="dsLoaiThuoc" class="slickgrid-word-wrap"    style="height:320px;border:1px solid #ddd;background:#fff;overflow:auto;">
             </div>
         </div>
     </div>
@@ -107,9 +107,9 @@
 
 
     function editRow(row, cell, value, columnDef, dataContext) {
-        var html = "<div onmouseover=\"this.style.cursor='pointer' \"  style='width: 99%; padding-left:3px; text-align:center;'><div class='col-sm-6 col-md-6 col-lg-6'>";
+        var html = "<div onmouseover=\"this.style.cursor='pointer' \"><div class='btn btn-default'>";
         html += " <span class='glyphicon glyphicon-remove' onclick='XoaLoaiThuoc(\"" + dataContext.Ma + "\")'><span> </div> ";
-        html += " <div class='col-sm-6 col-md-6 col-lg-6'  style=\"padding-left: 5px !important; \"> ";
+        html += " <div class='btn btn-default'> ";
         html += "   <span class='fa fa-pencil-square-o  ' onclick='ThemLoaiThuoc(\"" + dataContext.Ma + "\")'><span></div ></div > ";
         return value == "" ? "" : html;
     }
