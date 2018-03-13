@@ -10,7 +10,7 @@
     @Styles.Render("~/Content/style.min.css")
     @using Pkham.Data.Model;
     @using System.Data;
-
+    
     @{
         DataTable tableMenuNgang = new DataTable();
         Nguoisudung _nsd = (Session["USER_SESSION"] == null ? new Nguoisudung() : (Nguoisudung)Session["USER_SESSION"]);
@@ -90,6 +90,6 @@
             <p>&copy; 2018 - quannm</p>
         </footer>
     </div>
-
+    @Styles.Render("~/Scripts/custom.js");
 </body>
 </html>

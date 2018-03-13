@@ -453,14 +453,14 @@ a:focus {
 .header .user {
   color: #fff !important;
   padding: 18px 0px !important;
-  padding-left: 40px !important;
+  padding-left: 50px !important;
   position: relative;
   padding-right: 5px !important;
 }
 .header .user .avatar {
   position: absolute;
   top: 0px;
-  left: 0px;
+  left: 10px;
   bottom: 0px;
   margin: auto;
 }
@@ -541,4 +541,15 @@ footer {
   bottom: 0px;
   right: 0px;
   left: 240px;
+}
+.form-control {
+  border-radius: 2px;
+  box-shadow: 0px;
+}
+.btn {
+  border-radius: 2px;
+}
+.bootstrap-dialog .modal-title {
+  font-weight: bold;
+  font-size: 18px;
 }
