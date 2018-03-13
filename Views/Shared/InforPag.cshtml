@@ -1,8 +1,12 @@
-﻿@Scripts.Render("~/Scripts/highchart.js");
-<div class="dashboard-canvas">
+﻿
+@Styles.Render("~/Content/dashboard.css")
+@Scripts.Render("~/Scripts/highchart.js")
+
+
+<div class="dashboard-canvas statistics">
     <div class="row">
         <div class="col-lg-3 col-md-6">
-            <div class="item">
+            <div class="item c-green">
                 <div class="detail">
                     <span class="txt">Số lượt khám</span>
                     <span class="number">0</span>
@@ -13,7 +17,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="item">
+            <div class="item item c-yellow">
                 <div class="detail">
                     <span class="txt">Khám xong</span>
                     <span class="number">0</span>
@@ -24,7 +28,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="item">
+            <div class="item item c-blue">
                 <div class="detail">
                     <span class="txt">Chờ khám</span>
                     <span class="number">0</span>
@@ -35,7 +39,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6">
-            <div class="item">
+            <div class="item item c-red">
                 <div class="detail">
                     <span class="txt">Khám lại</span>
                     <span class="number">0</span>
@@ -57,7 +61,7 @@
                     </div>
                     <div class="pull-right">
                         <div class="dropdown select-dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Theo tháng
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Theo tháng
                             <span class="caret"></span></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Tháng này</a></li>
@@ -66,7 +70,7 @@
                             </ul>
                         </div>
                     </div>
-                    
+                    <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
                     <div id="chart-bar" style="height:320px;"></div>
@@ -74,7 +78,7 @@
 
             </div>
         </div>
-        <div class="col-sm-8 col-xs-12">
+        <div class="col-sm-4 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="title">

@@ -1,0 +1,59 @@
+/*Dashboard*/
+.dashboard-canvas {
+  margin-bottom: 20px;
+}
+.dashboard-canvas.statistics .item {
+  background: #fff;
+  box-shadow: 0px 1px 3px rgba(255, 255, 255, 0.05);
+  position: relative;
+  height: 80px;
+  padding: 10px;
+}
+.dashboard-canvas.statistics .item .detail .txt {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 5px;
+}
+.dashboard-canvas.statistics .item .detail .number {
+  font-size: 24px;
+  font-weight: bold;
+}
+.dashboard-canvas.statistics .item .icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  bottom: 5px;
+  width: 40px;
+  border-radius: 2px;
+  text-align: center;
+  line-height: 70px;
+  font-size: 32px;
+  color: #fff;
+}
+.dashboard-canvas.statistics .item.c-red .number {
+  color: #FF5722;
+}
+.dashboard-canvas.statistics .item.c-red .icon {
+  background: #FF5722;
+}
+.dashboard-canvas.statistics .item.c-blue .number {
+  color: #00BCD4;
+}
+.dashboard-canvas.statistics .item.c-blue .icon {
+  background: #00BCD4;
+}
+.dashboard-canvas.statistics .item.c-yellow .number {
+  color: #FFB300;
+}
+.dashboard-canvas.statistics .item.c-yellow .icon {
+  background: #FFB300;
+}
+.dashboard-canvas.statistics .item.c-green .number {
+  color: #4CAF50;
+}
+.dashboard-canvas.statistics .item .icon {
+  background: #4CAF50;
+}
+.dashboard-canvas .panel .panel-heading .title {
+  font-size: bold;
+}
