@@ -12,11 +12,7 @@
     <button type="button" class="btn btn-success" hotkey="F2" onclick="return ThemLoaiThuoc('');">
         <i class="glyphicon glyphicon-plus"></i> Thêm mới loại thuốc (F2)
     </button>
-    <div class="row">
-        <div class="col-md-12">
-            <div id="dsLoaiThuoc" class="slickgrid-word-wrap"    style="height:320px;border:1px solid #ddd;background:#fff;overflow:auto;">
-            </div>
-        </div>
+    <div id="dsLoaiThuoc" class="slickgrid-word-wrap"    style="height:320px;border:1px solid #ddd;background:#fff;overflow:auto;">
     </div>
 </div>
 <form>
@@ -107,9 +103,9 @@
 
 
     function editRow(row, cell, value, columnDef, dataContext) {
-        var html = "<div onmouseover=\"this.style.cursor='pointer' \"><div class='btn btn-default'>";
+        var html = "<div onmouseover=\"this.style.cursor='pointer' \"  style='width: 99%; padding-left:3px; text-align:center;'><div class='col-sm-6 col-md-6 col-lg-6'>";
         html += " <span class='glyphicon glyphicon-remove' onclick='XoaLoaiThuoc(\"" + dataContext.Ma + "\")'><span> </div> ";
-        html += " <div class='btn btn-default'> ";
+        html += " <div class='col-sm-6 col-md-6 col-lg-6'  style=\"padding-left: 5px !important; \"> ";
         html += "   <span class='fa fa-pencil-square-o  ' onclick='ThemLoaiThuoc(\"" + dataContext.Ma + "\")'><span></div ></div > ";
         return value == "" ? "" : html;
     }

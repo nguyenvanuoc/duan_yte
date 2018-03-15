@@ -79,7 +79,7 @@
     var columns = [
         { id: "Ten", name: "Tên", field: "Ten", width: 690 }, 
         { id: "Tentat", name: "Tên viết tắt", field: "Ghichu", width: 198 }, 
-        { id: "thaotac", name: "Thao tác", formatter: editRow }
+        { id: "thaotac", name: "Thao tác", width: 200, formatter: editRow }
     ];
 
     $(document).ready(function () {
@@ -88,7 +88,7 @@
 
             var config = {
                 pageSize: 13,
-                paging: "node",
+                paging: "scroll",
                 emtyRow: false,
                 page: {
                     maxNode: 4,
@@ -108,9 +108,9 @@
 
 
     function editRow(row, cell, value, columnDef, dataContext) {
-        var html = "<div onmouseover=\"this.style.cursor='pointer' \"><div class='btn btn-default'>";
+        var html = "<div onmouseover=\"this.style.cursor='pointer' \"  style='width: 99%; padding-left:3px; text-align:center;'><div class='col-sm-6 col-md-6 col-lg-6'>";
         html += " <span class='glyphicon glyphicon-remove' onclick='XoaDVT(\"" + dataContext.Ma + "\")'><span> </div> ";
-        html += " <div class='btn btn-default'> ";
+        html += " <div class='col-sm-6 col-md-6 col-lg-6'  style=\"padding-left: 5px !important; \"> ";
         html += "   <span class='fa fa-pencil-square-o  ' onclick='ThemDVT(\"" + dataContext.Ma + "\")'><span></div ></div > ";
         return value == "" ? "" : html;
     }

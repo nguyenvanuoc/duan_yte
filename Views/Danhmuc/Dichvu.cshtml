@@ -97,12 +97,13 @@
 
     var columns = [
         { id: "Ten", name: "Tên dịch vụ", field: "Ten", width: 690 },
-        { id: "gia", name: "Tên tôn giáo", field: "Gia", width: 200 },
-        { id: "thaotac", name: "Thao tác",formatter: editRow }
+        { id: "gia", name: "Giá dịch vụ", field: "Gia", width: 200, dataType: "Money"  },
+        { id: "thaotac", name: "Thao tác", width: 200, formatter: editRow }
     ];
 
     $(document).ready(function () {
         try {
+
             Emcsoft.Msg.wait();
 
             var config = {
@@ -119,6 +120,9 @@
             gridTG.config = config;
 
             LoadDICHVU();
+
+            $("#Ngayad").css("text-align", "center");
+            $("#Gia").css("text-align", "right");
             Emcsoft.Msg.stopWait();
         } catch (e) {
             Emcsoft.Msg.stopWait();
@@ -127,12 +131,14 @@
 
 
     function editRow(row, cell, value, columnDef, dataContext) {
-        var html = "<div onmouseover=\"this.style.cursor='pointer' \"><div class='btn btn-default'>";
-        html += " <span class='glyphicon glyphicon-remove' onclick='XoaDanToc(\"" + dataContext.Ma + "\")'><span> </div> ";
-        html += " <div class='btn btn-default'> ";
+        var html = "<div onmouseover=\"this.style.cursor='pointer' \"  style='width: 99%; padding-left:3px; text-align:center;'><div class='col-sm-6 col-md-6 col-lg-6'>";
+        html += " <span class='glyphicon glyphicon-remove' onclick='XoaDichVu(\"" + dataContext.Ma + "\")'><span> </div> ";
+        html += " <div class='col-sm-6 col-md-6 col-lg-6'  style=\"padding-left: 5px !important; \"> ";
         html += "   <span class='fa fa-pencil-square-o  ' onclick='ThemDichVu(\"" + dataContext.Ma + "\")'><span></div ></div > ";
         return value == "" ? "" : html;
     }
+
+
 
     function ThemDichVu(id) {
         b_so_id = id;
@@ -141,9 +147,15 @@
         });
         if (item.length > 0) {
             $("#Ten").val(item[0].Ten);
+            $("#Gia").val(Emcsoft.Common.stringToFormatNumber(item[0].Gia));
+            $("#Ngayad").val(item[0].Ngayad);
+
+            LoadThongtinLS(b_so_id);
         }
         else {
             $("#Ten").val("");
+            $("#Gia").val("");
+            $("#Ngayad").val("");
             $("#Ten").focus();
             b_so_id = "";
         }
@@ -152,21 +164,25 @@
         $("button[hotkey], input[hotkey]").attr("disableKey", "C");
     }
 
+
+
     function LoadThongtinLS(b_ma) {
         if (b_ma == "") {
             return false;
         }
 
-        $.getJSON("@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_DICHVU_LS_LKE", {
+        $.post("@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_DICHVU_LS_LKE", {
             "": b_ma
         }).done(function (a_data) {
-            debugger;
             if (CheckError(a_data)) {
                 ShowError(a_data);
                 return false;
             }
 
-            dataBinDrop("lsDichvu", a_data);
+            dataBinDrop("#lsDichvu", a_data);
+
+            $("#lsDichvu").val(Emcsoft.Common.stringDateToNumber($("#Ngayad").val()));
+
 
         }).fail(function (a, b) {
             Emcsoft.Msg.show("Có lỗi khi xem thông tin: Chi tiết lỗi " + a.responseJSON.Message);
@@ -191,17 +207,63 @@
 
     }
 
+    $("#lsDichvu").change(function (evt) {
+        var b_ngay = this.value;
+
+        if (b_ngay == "" || b_ngay == undefined) {
+            $("#Ten").val("");
+            $("#Gia").val("");
+            $("#Ngayad").val("");
+            $("#Ten").focus();
+        }
+        else {
+            var url = "@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_DICHVU_LS_CT";
+            url += "?id=" + b_so_id;
+            url += "&ngay=" + b_ngay;
+
+            $.post(url).done(function (a_data) {
+
+            if (CheckError(a_data)) {
+                ShowError(a_data);
+                return false;
+            }
+
+                $("#Ten").val(a_data[0].Ten);
+                $("#Gia").val(Emcsoft.Common.stringToFormatNumber(a_data[0].Gia));
+                $("#Ngayad").val(a_data[0].Ngayad);
+
+        }).fail(function (a, b) {
+            Emcsoft.Msg.show("Có lỗi khi xem thông tin: Chi tiết lỗi " + a.responseJSON.Message);
+                });
+           }
+    });
 
     $("#refesh").click(function () {
-        LuuChucVu("D");
+        LuuDichVu("D");
     });
-    function LuuChucVu(loai) {
+    function LuuDichVu(loai) {
+
         if ($("#Ten").val() == "") {
             Msg.Warning("Chưa nhập tên chức vụ");
             return false;
         }
+
+        var gia = $("#Gia").val(), b_ngay = $("#Ngayad").val();
+        if (Emcsoft.Common.isNullOrEmty(gia)) {
+            Emcsoft.Msg.show("Chưa nhập thông tin giá");
+            return;
+        }
+
+        if (Emcsoft.Common.isNullOrEmty(b_ngay)) {
+            Emcsoft.Msg.show("Chưa nhập thông tin ngày áp dụng");
+            return;
+        }
+
+        b_ngay = Emcsoft.Common.stringDateToNumber(b_ngay);
+        gia = Emcsoft.Common.formatNumberToNumber(gia);
+
         Emcsoft.Msg.wait();
-        $.post("@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_DICHVU_NH", { Ma: b_so_id, Ten: $("#Ten").val() })
+        $.post("@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_DICHVU_NH", { Ma: b_so_id, Ten: $("#Ten").val(), Gia: gia, Ngayad: b_ngay })
             .done(function (b_kq) {
                 try {
                     if (CheckError(b_kq)) {
@@ -216,7 +278,10 @@
                     if (loai == "D")
                         $("#myModal").modal('hide');
                     else {
-                        $("#txtTenHinhthuc").val("");
+                        $("#Ten").val("");
+                        $("#Gia").val("");
+                        $("#Ngayad").val("");
+                        $("#Ten").focus();
                         b_so_id = "";
                     }
                 } catch (e) {
@@ -241,20 +306,18 @@
     }
 
     $("#saveFile").click(function () {
-        LuuChucVu("M");
+        LuuDichVu("M");
     });
 
-    function XoaDanToc(so_id) {
+    function XoaDichVu(so_id) {
         if (Emcsoft.Common.isNullOrEmty(so_id)) {
             Emcsoft.Msg.show("Chưa chọn chức vụ để xóa");
             return;
         }
         BootstrapDialog.confirm('Bạn có chắc chắn xóa không ?', function (result) {
             if (result) {
-                var url = "@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_DICHVU_XOA";
-                $.post(url, {
-                    "": so_id
-                })
+                var url = "@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_DICHVU_XOA?id=" + b_so_id+"&ngay=";
+                $.post(url)
                     .done(function (b_kq) {
                         try {
                             Emcsoft.Msg.wait();
@@ -271,4 +334,36 @@
             }
         });
     }
+
+    $("#xoa").click(function (evt) { 
+        if (Emcsoft.Common.isNullOrEmty(b_so_id)) {
+            Emcsoft.Msg.show("Chưa chọn chức vụ để xóa");
+            return;
+        }
+        BootstrapDialog.confirm('Bạn có chắc chắn xóa không ?', function (result) {
+            if (result) {
+                var b_ngay = Emcsoft.Common.stringDateToNumber($("#Ngayad").val());
+                var url = "@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_DICHVU_XOA?id=" + b_so_id + "&ngay=" + b_ngay;
+                $.post(url)
+                    .done(function (b_kq) {
+                        try {
+                            Emcsoft.Msg.wait();
+
+                            LoadThongtinLS(b_so_id);
+                            $("#Ten").val("");
+                            $("#Gia").val("");
+                            $("#Ngayad").val("");
+                            $("#Ten").focus();
+
+                            Emcsoft.Msg.stopWait(); 
+                        } catch (e) {
+                            Emcsoft.Msg.stopWait();
+                        }
+                    })
+                    .fail(function (a, b) {
+                        Emcsoft.Msg.show("Có lỗi khi xóa thông tin: Chi tiết lỗi " + a.responseJSON.Message);
+                    });
+            }
+        });
+    });
 </script>
