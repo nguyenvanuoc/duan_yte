@@ -531,6 +531,7 @@ a:focus {
   right: 0px;
   overflow-y: auto;
   padding-bottom: 60px;
+  z-index: 5;
 }
 footer {
   text-align: center;
