@@ -531,7 +531,7 @@ a:focus {
 }
 .main-content:before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0px;
   bottom: 0px;
   width: 220px;
