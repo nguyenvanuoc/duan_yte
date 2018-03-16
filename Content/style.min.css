@@ -528,6 +528,7 @@ a:focus {
   bottom: 0px;
   right: 0px;
   overflow-y: auto;
+  contepadding-bottom: 60px;
 }
 .main-content:before {
   content: "";
@@ -541,7 +542,7 @@ a:focus {
 }
 footer {
   text-align: center;
-  padding: 20px;
+  padding: 10px 20px;
   position: absolute;
   bottom: 0px;
   right: 0px;
