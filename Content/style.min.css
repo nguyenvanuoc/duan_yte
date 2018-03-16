@@ -493,6 +493,7 @@ a:focus {
   padding: 20px 0px;
   bottom: 0px;
   background: #fff;
+  border-right: 1px solid #e9ebec;
 }
 .sidebar-menu .title {
   font-size: 20px;
@@ -507,7 +508,7 @@ a:focus {
   display: block;
   color: #333;
   padding: 10px 10px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #e9ebec;
 }
 .sidebar-menu .menus .item:hover,
 .sidebar-menu .menus .item.active {
