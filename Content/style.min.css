@@ -528,7 +528,7 @@ a:focus {
   bottom: 0px;
   right: 0px;
   overflow-y: auto;
-  contepadding-bottom: 60px;
+  padding-bottom: 60px;
 }
 .main-content:before {
   content: "";
@@ -545,8 +545,9 @@ footer {
   padding: 10px 20px;
   position: absolute;
   bottom: 0px;
-  right: 0px;
+  right: 20px;
   left: 240px;
+  background: #f5f8fd;
 }
 .form-control {
   border-radius: 2px;
