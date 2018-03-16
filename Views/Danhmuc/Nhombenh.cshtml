@@ -1,0 +1,249 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string loai = ViewBag.loai;
+}
+<br />
+
+<div class="row" style="margin-top:10px;">
+    <div class="col-sm-3 col-md-2">
+        @Html.Partial("LeftMenu");
+    </div>
+    <div class="col-sm-9 col-md-10 ">
+        <br />
+        <button type="button" class="btn btn-default" hotkey="F2" onclick="return THEMMOINHOMBENHLY('');">
+            <i class="glyphicon glyphicon-plus"></i> Thêm mới nhóm bệnh
+        </button>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div id="dsNHOMBENHLY" style="width:100%; height:380px; border: 1px dotted #808080 "
+                     class="slickgrid-word-wrap">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="modal bootstrap-dialog type-primary fade size-normal in" id="myModal" role="dialog" aria-labelledby="Thông tin chức vụ" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog" style="width: 45%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Thông tin đơn vị tính</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="max-width: 100%;">
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="control-label col-ms-2 col-md-2 col-lg-2" style="font-weight:normal; float:left !important; margin-top:5px; ">
+                                    Tên
+                                </label>
+                                <div class="controls col-md-9 col-sm-9 col-lg-9" style="margin-bottom: 10px;">
+                                    <input class="input-md  textinput textInput form-control" id="Ten" autofocus
+                                           placeholder="Tên nhóm bệnh lý" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-ms-2 col-md-2 col-lg-2" style="font-weight:normal; float:left !important; margin-top:5px; ">
+                                    Ghi chú
+                                </label>
+                                <div class="controls col-md-9 col-sm-9 col-lg-9" style="margin-bottom: 10px;">
+                                    <input class="input-md  textinput textInput form-control" id="Ghichu"  
+                                           placeholder="Ghi chú" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2 col-ms-2" style="font-weight:normal;  margin-top:5px; ">
+                                    Theo dõi
+                                </label>
+                                <div class="controls col-md-10 co-sm-10 col-lg-10" style="margin-bottom: 10px;">
+                                    <input class="checkbox" id="Active" checked="checked"
+                                           placeholder="Số điện thoại" type="checkbox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="saveFile" class="btn btn-default"><i class="fa fa-plus  "></i> Lưu lại và thêm mới</button>
+                            <button type="button" id="refesh" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Lưu lại và đóng</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                <i class="glyphicon glyphicon-share-alt"></i> Đóng lại
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</form>
+
+
+<script type="text/javascript">
+    var b_so_id = "";
+    var data = {};
+    var gridCV;
+
+    var columns = [
+        { id: "Ten", name: "Tên", field: "Ten", width: 490 }, 
+        { id: "Tentat", name: "Ghi chú", field: "Ghichu", width: 398 }, 
+        { id: "thaotac", name: "Thao tác", width: 200, formatter: editRow }
+    ];
+
+    $(document).ready(function () {
+        try {
+            Emcsoft.Msg.wait();
+
+            var config = {
+                pageSize: 13,
+                paging: "node",
+                emtyRow: false,
+                page: {
+                    maxNode: 4,
+                    showInfo: true
+                }
+            };
+
+            gridCV = new gridView("#dsNHOMBENHLY", columns);
+            gridCV.config = config;
+
+            LoadNHOMBENHLY();
+            Emcsoft.Msg.stopWait();
+        } catch (e) {
+            Emcsoft.Msg.stopWait();
+        }
+    });
+
+
+    function editRow(row, cell, value, columnDef, dataContext) {
+        var html = "<div onmouseover=\"this.style.cursor='pointer' \"  style='width: 99%; padding-left:3px; text-align:center;'><div class='col-sm-6 col-md-6 col-lg-6'>";
+        html += " <span class='glyphicon glyphicon-remove' onclick='XoaNHOMBENHLY(\"" + dataContext.Ma + "\")'><span> </div> ";
+        html += " <div class='col-sm-6 col-md-6 col-lg-6'  style=\"padding-left: 5px !important; \"> ";
+        html += "   <span class='fa fa-pencil-square-o  ' onclick='THEMMOINHOMBENHLY(\"" + dataContext.Ma + "\")'><span></div ></div > ";
+        return value == "" ? "" : html;
+    }
+
+    function THEMMOINHOMBENHLY(id) { 
+        b_so_id = id;
+        var item = $.grep(data, function (val, index) {
+            return val.Ma == id;
+        });
+        if (item.length > 0) { 
+            $("#Ten").val(item[0].Ten); 
+            $("#Ghichu").val(item[0].Ghichu); 
+            $("#Ten").focus();
+        }
+        else {
+            $("#Ten").val("");
+            $("#Ghichu").val(""); 
+            $("#Ten").focus();
+            b_so_id = "";
+        }
+
+        $("#myModal").modal('show');
+        $("button[hotkey], input[hotkey]").attr("disableKey", "C");
+    }
+
+    function LoadNHOMBENHLY() {
+        $.getJSON("@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_NHOMBENHLY_LKE").done(function (a_data) {
+            if (CheckError(a_data)) {
+                ShowError(a_data);
+                return false;
+            }
+
+            data = a_data;
+
+            gridCV.data = a_data;
+            gridCV.init();
+            
+        }).fail(function (a, b) {
+            Emcsoft.Msg.show("Có lỗi khi xem thông tin: Chi tiết lỗi " + a.responseJSON.Message);
+        });
+
+    }
+
+     
+    $("#refesh").click(function () {
+        LuuChucVu("D");
+    });
+    function LuuChucVu(loai) {
+        if ($("#Ten").val() == "") {
+            Msg.Warning("Chưa nhập tên chức vụ");
+            return false;
+        }
+        Emcsoft.Msg.wait();
+        $.post("@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_NHOMBENHLY_NH", { Ma: b_so_id, Ten: $("#Ten").val(), Ghichu: $("#Ghichu").val() })
+            .done(function (b_kq) {
+                try {
+                    if (CheckError(b_kq)) {
+                        ShowError(b_kq);
+                        return;
+                    }
+
+                    b_so_id = b_kq.so_id; 
+                    binDataGrid(b_kq.dmdt);
+                    Emcsoft.Msg.stopWait();
+
+                    if (loai == "D")
+                        $("#myModal").modal('hide');
+                    else {
+                        $("#Ten").val("");
+                        $("#Ghichu").val("");
+                        b_so_id = "";
+                    }
+                } catch (e) {
+                    Emcsoft.Msg.stopWait();
+                }
+            })
+            .fail(function (a, b) {
+                Emcsoft.Msg.show("Có lỗi khi lưu thông tin: Chi tiết lỗi " + a.responseJSON.Message);
+            });
+    }
+
+    function binDataGrid(b_kq) { 
+        data = b_kq;
+        gridCV.dataBin(b_kq); 
+
+        if (!Emcsoft.Common.isNullOrEmty(b_so_id)) {
+            var indexRow = gridCV.getRowIndexFilter(["Ma"], [b_so_id], ["=="]);
+            if (indexRow >= 0) {
+                gridCV.setActiveRow(indexRow);
+            }
+        }
+    }
+
+    $("#saveFile").click(function () {
+        LuuChucVu("M");
+    });
+
+    function XoaNHOMBENHLY(so_id) {
+        if (Emcsoft.Common.isNullOrEmty(so_id)) {
+            Emcsoft.Msg.show("Chưa chọn chức vụ để xóa");
+            return;
+        }
+        BootstrapDialog.confirm('Bạn có chắc chắn xóa không ?', function (result) {
+            if (result) {
+                var url = "@Core.Constants.Config.GetBaseUrl()/api/Danhmuc/DM_NHOMBENHLY_XOA";
+                $.post(url, {
+                    "": so_id
+                })
+                    .done(function (b_kq) {
+                        try {
+                            Emcsoft.Msg.wait();
+                            binDataGrid(b_kq);
+                            Emcsoft.Msg.stopWait();
+                            b_so_id = "";
+                        } catch (e) {
+                            Emcsoft.Msg.hide();
+                        }
+                    })
+                    .fail(function (a, b) {
+                        Emcsoft.Msg.show("Có lỗi khi xóa thông tin: Chi tiết lỗi " + a.responseJSON.Message);
+                    });
+            }
+        });
+    }
+</script>

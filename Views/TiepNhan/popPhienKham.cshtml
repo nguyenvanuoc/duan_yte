@@ -1,0 +1,114 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+<style>
+    .Popup{margin:10px;}
+</style>
+<div class="Popup">
+    <div class="row">
+        <div class="col-md-3 form-group-sm">
+            <label>Họ tên</label>
+            <input type="text" class="form-control" id="txtTen" readonly />
+        </div>
+        <div class="col-md-3 form-group-sm">
+            <label>Số điện thoại</label>
+            <input type="text" class="form-control" id="txtDienThoai" value="" readonly />
+        </div>
+        <div class="col-md-6 form-group-sm">
+            <label>Lý do khám</label>
+            <input type="text" class="form-control" id="txtLyDo" placeholder="Lý do khám"/>
+        </div>
+        <div class="col-md-6 form-group-sm">
+            <label>Hỏi bệnh</label>
+            <input type="text" class="form-control" id="txtHoiBenh" placeholder="Thông tin hỏi bệnh" />
+        </div>
+        <div class="col-md-3 form-group-sm">
+            <label>Ghi chú</label>
+            <textarea class="form-control" cols="20" rows="5" id="txtGhiChu"></textarea>
+        </div>
+        <div class="col-md-3 form-group-sm">
+            <label>Bác sĩ khám</label>
+            <select class="form-control" id="selBacSy">
+                <option value="1">BS Hiếu</option>
+                <option value="2">BS Quân</option>
+            </select>
+        </div>
+
+        <div class="col-md-12 ACTIONS" style="margin-top:10px">
+            <input type="hidden" id="hdfID" />
+            <button class="btn btn-primary" id="btnLuu"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+            <div id="eccAlert"></div>
+        </div>
+    </div>
+</div>
+<script src="~/Assets/libs/Inputmask-2.x/dist/jquery.inputmask.bundle.min.js"></script>
+<script src="~/Assets/PhongKham/PK_PHIEN_KHAM.js"></script>
+<script src="~/Assets/PhongKham/PK_BENH_NHAN.js"></script>
+<script src="~/Assets/PhongKham/NGUOISUDUNG.js"></script>
+<script src="~/Assets/libs/IcoLibs/Utilities.js"></script>
+
+<script>
+
+    var PhienKham = new PK_PHIEN_KHAM(1);
+    PhienKham.URL = "@Core.Constants.Config.GetBaseUrl()";
+    var BenhNhan = new PK_BENH_NHAN(1);
+    BenhNhan.URL = "@Core.Constants.Config.GetBaseUrl()";
+
+    var Nsd = new NGUOISUDUNG(1);
+    Nsd.URL = "@Core.Constants.Config.GetBaseUrl()";
+    var Utils = new ICO_UTILS(1);
+
+    function Page_init() {
+        var _id = Utils.getParameterByName('id');
+        if (_id != null) {
+            PhienKham.ID_BENH_NHAN = _id;
+            BenhNhan.ID_BENH_NHAN = _id;
+            Form_clear();
+            Form_binding();
+
+        }
+
+    }
+
+    function Form_binding() {
+        var _id = $('#hdfID').val();
+        BenhNhan.get(_id);
+        $('#txtTen').val(BenhNhan.TEN);
+        $('#txtDienThoai').val(BenhNhan.SO_DIEN_THOAI);
+
+        Nsd.find_01('');
+        var _html = '';
+        for (var i = 0; i < Nsd.DanhSach.length; i++) {
+            var _item = Nsd.DanhSach[i];
+            _html += '<option value="' + _item.nsd + '">' + _item.Tenhienthi + '</option>';
+        }
+        $('#selBacSy').html(_html);
+    }
+
+    function Form_clear() {}
+
+
+    function add() {
+            PhienKham.LY_DO_KHAM = $('#txtLyDo').val();
+            PhienKham.HOI_BENH = $('#txtHoiBenh').val();
+            PhienKham.GHI_CHU = $('#txtGhiChu').val();
+            PhienKham.BAC_SY_KHAM = $('#selBacSy').val();
+            var _rs = PhienKham.add();
+            $('.bootstrap-dialog-close-button .close').click();
+            alert(_rs.MESSAGE);
+    }
+
+    function edit() {
+        Page_init();
+    }
+
+
+    $(function () {
+        Page_init();
+
+        $('.ACTIONS').on('click', '#btnLuu', function () {
+
+            add();
+        });
+    })
+</script>

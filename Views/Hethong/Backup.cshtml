@@ -5,29 +5,31 @@
 }
 
 
-    <div class="sidebar-menu">
+<div class="row" style="margin-top:30px;">
+    <div class="col-sm-3 col-md-2" style="padding-right:0px !important; padding-left:10px !important;">
         @Html.Partial("Leftmenu")
     </div>
-    <div class="main-content">
+    <div class="col-sm-9 col-md-10 ">
+        <br />
         <div class="row">
-            <div class="col-md-7 col-sm-offset-2">
-                <div class="input-group">
-                    <div class="icon-addon addon-md">
-                        <input type="text" placeholder="Nhập thông tin đường dẫn để backuo Database" value="@ViewBag.file" width="500" title="Nhập thông tin đường dẫn để backuo Database" class="form-control" id="url">
-                    </div>
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="guiemail">
-                            <i class="fa fa-database  "></i>
-                        </button>
+            <div class="col-md-12 col-sm-12">
+                <div class="col-md-7 col-sm-offset-2">
+                    <div class="input-group">
+                        <div class="icon-addon addon-md">
+                            <input type="text" placeholder="Nhập thông tin đường dẫn để backuo Database" value="@ViewBag.file" width="500"
+                                   title="Nhập thông tin đường dẫn để backuo Database" class="form-control" id="url">
+                        </div>
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button" id="guiemail">
+                                <i class="fa fa-database  "></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(".navbar-collapse .navbar-nav > li").setActive(2);
-        $(".sidebar-menu .menus > .item").setActive(2);
-    </script>
+
     <script type="text/javascript">
 
     $(document).ready(function () {

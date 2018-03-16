@@ -5,53 +5,62 @@
 
     string loai = ViewBag.loai;
 }
-<div class="sidebar-menu">
-    @Html.Partial("LeftMenu");
-</div>
-<div class="main-content">
-    <button type="button" class="btn btn-success" hotkey="F2" onclick="return ThemLoaiThuoc('');">
-        <i class="glyphicon glyphicon-plus"></i> Thêm mới loại thuốc (F2)
-    </button>
-    <div class="row">
-        <div class="col-md-12">
-            <div id="dsLoaiThuoc" class="slickgrid-word-wrap"    style="height:320px;border:1px solid #ddd;background:#fff;overflow:auto;">
+<br />
+
+<div class="row" style="margin-top:10px;">
+    <div class="col-sm-3 col-md-2">
+        @Html.Partial("LeftMenu");
+    </div>
+    <div class="col-sm-9 col-md-10 ">
+        <br />
+        <button type="button" class="btn btn-default" hotkey="F2" onclick="return ThemLoaiThuoc('');">
+            <i class="glyphicon glyphicon-plus"></i> Thêm mới loại thuốc (F2)
+        </button>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <div id="dsLoaiThuoc" style="width:100%; height:380px; border: 1px dotted #808080 "
+                     class="slickgrid-word-wrap">
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <form>
     <div class="modal bootstrap-dialog type-primary fade size-normal in" id="myModal" role="dialog" aria-labelledby="Thông tin chức vụ" data-backdrop="static" data-keyboard="false" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="width: 45%;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h4 class="modal-title">Thông tin loại thuốc</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
+                    <div class="container" style="max-width: 100%; text-align:left;">
                         <div class="row">
                             <div class="form-group">
-                                <label class="control-label col-sm-3 col-xs-12">
+                                <label class="control-label col-sm-2 col-ms-2 col-lg-2" style="font-weight:normal;  margin-top:5px; text-align:left; ">
                                     Tên loại thuốc
                                 </label>
-                                <div class="controls col-sm-9 col-xs-12">
-                                    <input class="input-md  textinput textInput form-control" id="Ten" autofocus="true"
+                                <div class="controls col-md-10" style="margin-bottom: 10px;">
+                                    <input class="input-md  textinput textInput form-control" id="Ten" autofocus
                                            placeholder="Tên loại thốc" type="text" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-3  col-lg-2 col-xs-12">
+                                <label class="control-label col-sm-2 col-ms-2 col-lg-2" style="font-weight:normal;  margin-top:5px; text-align:left; ">
                                     Theo dõi
                                 </label>
-                                <div class="controls col-md-10 col-sm-9 col-lg-10 col-xs-12">
+                                <div class="controls col-md-10 co-sm-10 col-lg-10" style="margin-bottom: 10px;">
                                     <input class="checkbox" id="Trangthai" checked="checked"
                                            placeholder="Số điện thoại" type="checkbox" />
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="saveFile" class="btn btn-primary"><i class="fa fa-plus  "></i> Lưu lại</button>
-                            <button type="button" id="refesh" class="btn btn-primary"><i class="glyphicon glyphicon-refresh"></i> Lưu lại và đóng</button>
+                            <button type="button" id="saveFile" class="btn btn-default"><i class="fa fa-plus  "></i>Lưu lại và thêm mới</button>
+                            <button type="button" id="refesh" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Lưu lại và đóng</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 <i class="glyphicon glyphicon-share-alt"></i> Đóng lại
                             </button>
@@ -63,12 +72,6 @@
     </div>
 </form>
 
-<script type="text/javascript">
-    $(".navbar-collapse .navbar-nav > li").setActive(1);
-</script>
-<script type="text/javascript">
-    $(".sidebar-menu .menus > .item").setActive(2);
-</script>
 
 <script type="text/javascript">
     var b_so_id = "";
@@ -107,9 +110,9 @@
 
 
     function editRow(row, cell, value, columnDef, dataContext) {
-        var html = "<div onmouseover=\"this.style.cursor='pointer' \"><div class='btn btn-default'>";
+        var html = "<div onmouseover=\"this.style.cursor='pointer' \"  style='width: 99%; padding-left:3px; text-align:center;'><div class='col-sm-6 col-md-6 col-lg-6'>";
         html += " <span class='glyphicon glyphicon-remove' onclick='XoaLoaiThuoc(\"" + dataContext.Ma + "\")'><span> </div> ";
-        html += " <div class='btn btn-default'> ";
+        html += " <div class='col-sm-6 col-md-6 col-lg-6'  style=\"padding-left: 5px !important; \"> ";
         html += "   <span class='fa fa-pencil-square-o  ' onclick='ThemLoaiThuoc(\"" + dataContext.Ma + "\")'><span></div ></div > ";
         return value == "" ? "" : html;
     }

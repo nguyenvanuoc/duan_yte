@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+<style>
+    .Popup {
+        margin: 10px;
+    }
+</style>
+<div class="Popup">
+    <table class="table table-bordered table-striped" id="tblChiTiet">
+        <tr>
+            <td>Họ tên:</td>
+            <td id="lbl_hoten"></td>
+        </tr>
+        <tr>
+            <td>Ngày sinh:</td>
+            <td id="lbl_ngaysinh"></td>
+        </tr>
+        <tr>
+            <td>Giới tính:</td>
+            <td id="lbl_gioitinh"></td>
+        </tr>
+        <tr>
+            <td>Số điện thoại:</td>
+            <td id="lbl_dienthoai"></td>
+        </tr>
+        <tr>
+            <td>Nghề nghiệp:</td>
+            <td id="lbl_nghenghiep"></td>
+        </tr>
+        <tr>
+            <td>Hôn nhân:</td>
+            <td id="lbl_honnhan"></td>
+        </tr>
+        <tr>
+            <td>Số CMTND / Hộ chiếu:</td>
+            <td id="lbl_cmt"></td>
+        </tr>
+        <tr>
+            <td>Ghi chú:</td>
+            <td id="lbl_ghichu"></td>
+        </tr>
+    </table>
+</div>
+<script src="~/Assets/libs/Inputmask-2.x/dist/jquery.inputmask.bundle.min.js"></script>
+<script src="~/Assets/PhongKham/PK_BENH_NHAN.js"></script>
+<script src="~/Assets/libs/IcoLibs/Utilities.js"></script>
+
+<script>
+    var BenhNhan = new PK_BENH_NHAN(1);
+    BenhNhan.URL = "@Core.Constants.Config.GetBaseUrl()";
+    var Utils = new ICO_UTILS(1);
+
+    function BenhNhan_binding() {
+        BenhNhan.get();
+        $('#tblChiTiet #lbl_hoten').html(BenhNhan.TEN);
+        $('#tblChiTiet #lbl_ngaysinh').html(BenhNhan.NGAY_SINH.substring(0,10));
+        $('#tblChiTiet #lbl_gioitinh').html(BenhNhan.GIOI_TINH=='1'?'Nam':'Nữ');
+        $('#tblChiTiet #lbl_dienthoai').html(BenhNhan.SO_DIEN_THOAI);
+        $('#tblChiTiet #lbl_nghenghiep').html(BenhNhan.NGHE_NGHIEP);
+        $('#tblChiTiet #lbl_honnhan').html(BenhNhan.HON_NHAN == '1' ? 'Đã lập gia đình' : 'Độc thân');
+        $('#tblChiTiet #lbl_cmt').html(BenhNhan.SO_CMT_HC);
+        $('#tblChiTiet #lbl_ghichu').html(BenhNhan.GHI_CHU);
+    }
+
+    function Page_init() {
+        var _id = Utils.getParameterByName('id');
+        if (_id != null) {
+            BenhNhan.ID_BENH_NHAN = _id;
+
+            BenhNhan_binding();
+        }
+
+    }
+
+    $(function () {
+        Page_init();
+        window.close();
+    })
+</script>

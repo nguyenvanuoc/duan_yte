@@ -1,0 +1,158 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+<style>
+    .Popup {
+        margin: 10px;
+    }
+</style>
+<div class="Popup">
+    <div class="row">
+        <div class="col-xs-8 form-group-sm">
+            <label>Họ tên</label>
+            <input type="text" class="form-control" id="txtTen" placeholder="Họ và tên" />
+        </div>
+        <div class="col-xs-4 form-group-sm">
+            <label>Số điện thoại</label>
+            <input type="text" class="form-control" id="txtSoDienThoai" placeholder="Số điện thoại" />
+        </div>
+        <div class="col-xs-3 form-group-sm">
+            <label>Giới tính</label>
+            <select class="form-control" id="selGioiTinh">
+                <option value="1">Nam</option>
+                <option value="0">Nữ</option>
+            </select>
+        </div>
+        <div class="col-xs-3 form-group-sm">
+            <label>Ngày sinh</label>
+            <input type="text" class="form-control" id="txtNgaySinh" data-inputmask="'alias': 'date'"/>
+        </div>
+        
+        <div class="col-xs-3 form-group-sm">
+            <label>Nghề nghiệp</label>
+            <input type="text" class="form-control" id="txtNgheNghiep" placeholder="Nghề nghiệp" />
+        </div>
+        <div class="col-xs-3 form-group-sm">
+            <label>Số CMT</label>
+            <input type="text" class="form-control" id="txtCMT" placeholder="Số CMT" />
+        </div>
+        <div class="col-xs-3 form-group-sm">
+            <label>Tình trạng hôn nhân</label>
+            <select class="form-control" id="selHonNhan">
+                <option value="0">Độc thân</option>
+                <option value="1">Đã kết hôn</option>
+            </select>
+        </div>
+        <div class="col-xs-3 form-group-sm">
+            <label>Địa chỉ</label>
+            <textarea class="form-control" cols="20" rows="5" id="txtDiaChi"></textarea>
+        </div>
+        <div class="col-xs-6 form-group-sm">
+            <label>Ghi chú</label>
+            <textarea class="form-control" cols="20" rows="5" id="txtGhiChu"></textarea>
+        </div>
+        <div class="col-xs-12 ACTIONS">
+            <input type="hidden" id="hdfID" />
+            <button class="btn btn-primary" id="btnLuu"><i class="glyphicon glyphicon-save"></i> Lưu</button>
+            <div id="eccAlert"></div>
+        </div>
+    </div>
+</div>
+<script src="~/Assets/libs/Inputmask-2.x/dist/jquery.inputmask.bundle.min.js"></script>
+<script src="~/Assets/PhongKham/PK_BENH_NHAN.js"></script>
+<script src="~/Assets/libs/IcoLibs/Utilities.js"></script>
+
+<script>
+
+    var BenhNhan = new PK_BENH_NHAN(1);
+    BenhNhan.URL = "@Core.Constants.Config.GetBaseUrl()";
+    var Utils = new ICO_UTILS(1);
+
+    function Page_init() {
+        var id = Utils.getParameterByName('id');
+        if (id == null) {
+            Form_clear();
+
+        } else {
+            BenhNhan.ID_BENH_NHAN = id;
+            var _rs = BenhNhan.get();
+            if (_rs.CODE == 'SUC') {
+                $('#selGioiTinh').val(BenhNhan.GIOI_TINH);
+                $('#txtTen').val(BenhNhan.TEN);
+                $('#txtNgaySinh').val(BenhNhan.NGAY_SINH);
+                $('#txtSoDienThoai').val(BenhNhan.SO_DIEN_THOAI);
+                $('#txtNgheNghiep').val(BenhNhan.NGHE_NGHIEP);
+                $('#txtCMT').val(BenhNhan.SO_CMT_HC);
+                $('#selHonNhan').val(BenhNhan.HON_NHAN);
+                $('#txtDiaChi').val(BenhNhan.DIA_CHI);
+                $('#txtGhiChu').val(BenhNhan.GHI_CHU);
+                $('#hdfID').val(id);
+            } else {
+                alert(_rs.MESSAGE);
+            }
+        }
+
+        $('#txtNgaySinh').inputmask();
+    }
+
+    function Form_clear() {
+        $('#selGioiTinh').val('1');
+        $('#txtTen').val('');
+        $('#txtNgaySinh').val('');
+        $('#txtSoDienThoai').val('');
+        $('#txtNgheNghiep').val('');
+        $('#txtCMT').val('');
+        $('#selHonNhan').val('0');
+        $('#txtDiaChi').val('');
+        $('#txtGhiChu').val('');
+        $('#hdfID').val('');
+
+    }
+
+
+    function add() {
+        BenhNhan.TEN = $('#txtTen').val();
+        BenhNhan.GIOI_TINH = $('#selGioiTinh').val();
+        BenhNhan.SO_DIEN_THOAI = $('#txtSoDienThoai').val();
+        BenhNhan.NGAY_SINH = $('#txtNgaySinh').val();
+        BenhNhan.NGHE_NGHIEP = $('#txtNgheNghiep').val();
+        BenhNhan.SO_CMT_HC = $('#txtCMT').val();
+        BenhNhan.HON_NHAN = $('#selHonNhan').val();
+        BenhNhan.DIA_CHI = $('#txtDiaChi').val();
+        BenhNhan.GHI_CHU = $('#txtGhiChu').val();
+        var _rs = BenhNhan.add();
+        alert(_rs.MESSAGE);
+        Form_clear();
+    }
+
+    function edit() {
+        BenhNhan.ID_BENH_NHAN = $('#hdfID').val();
+        BenhNhan.TEN = $('#txtTen').val();
+        BenhNhan.GIOI_TINH = $('#selGioiTinh').val();
+        BenhNhan.SO_DIEN_THOAI = $('#txtSoDienThoai').val();
+        BenhNhan.NGAY_SINH = $('#txtNgaySinh').val();
+        BenhNhan.NGHE_NGHIEP = $('#txtNgheNghiep').val();
+        BenhNhan.SO_CMT_HC = $('#txtCMT').val();
+        BenhNhan.HON_NHAN = $('#selHonNhan').val();
+        BenhNhan.DIA_CHI = $('#txtDiaChi').val();
+        BenhNhan.GHI_CHU = $('#txtGhiChu').val();
+        var _rs = BenhNhan.edit();
+        alert(_rs.MESSAGE);
+        Page_init();
+    }
+
+
+
+    $(function () {
+        Page_init();
+
+        $('.ACTIONS').on('click', '#btnLuu', function () {
+            var id = $('#hdfID').val();
+            if(id!=''){
+                edit();
+            } else {
+                add();
+            }
+        });
+    })
+</script>

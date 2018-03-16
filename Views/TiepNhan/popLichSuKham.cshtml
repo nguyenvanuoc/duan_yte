@@ -1,0 +1,195 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+<style>
+    .Popup {
+        margin: 10px;
+    }
+    #tblDanhSach > tbody > tr:hover{
+        cursor: pointer;
+        background-color:#0EB2D4;
+    }
+
+    #tblDanhSach > tbody tr.selected {
+        color: white;
+        background-color: #0EB2D4 !important; 
+    }
+</style>
+<div class="Popup">
+    <div class="row" style="padding-left:10px">
+        <div class="well col-md-4">
+            <div class="form-group-sm">
+                <label>Lọc lịch sử khám</label>
+            </div>
+            <table class="table table-striped table-bordered table-hover table-columned" id="tblDanhSach">
+                <thead>
+                    <tr>
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-2">Thời gian</th>
+                        <th class="col-md-2">Bác sỹ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-primary" id="LIST">
+                <div class="panel-heading">Chi tiết khám bệnh</div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped" id="tblChiTiet">
+                        <tr>
+                            <td>Bệnh nhân:</td>
+                            <td id="lbl_benhnhan"></td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại:</td>
+                            <td id="lbl_dienthoai"></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày khám:</td>
+                            <td id="lbl_ngaykham"></td>
+                        </tr>
+                        <tr>
+                            <td>Người tiếp nhận:</td>
+                            <td id="lbl_tiepnhan"></td>
+                        </tr>
+                        <tr>
+                            <td>Bác sĩ khám:</td>
+                            <td id="lbl_bacsy"></td>
+                        </tr>
+                        <tr>
+                            <td>Lý do khám:</td>
+                            <td id="lbl_lydo"></td>
+                        </tr>
+                        <tr>
+                            <td>Hỏi bệnh:</td>
+                            <td id="lbl_hoibenh"></td>
+                        </tr>
+                        <tr>
+                            <td>Chẩn đoán:</td>
+                            <td id="lbl_chandoan"></td>
+                        </tr>
+                        <tr>
+                            <td>Ghi chú:</td>
+                            <td id="lbl_ghichu"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script src="~/Assets/libs/Inputmask-2.x/dist/jquery.inputmask.bundle.min.js"></script>
+<script src="~/Assets/PhongKham/PK_PHIEN_KHAM.js"></script>
+<script src="~/Assets/PhongKham/PK_BENH_NHAN.js"></script>
+<script src="~/Assets/libs/IcoLibs/Utilities.js"></script>
+
+<script>
+    var PhienKham = new PK_PHIEN_KHAM(1);
+    PhienKham.URL = "@Core.Constants.Config.GetBaseUrl()";
+    var BenhNhan = new PK_BENH_NHAN(1);
+    BenhNhan.URL = "@Core.Constants.Config.GetBaseUrl()";
+    var Utils = new ICO_UTILS(1);
+
+    var tblDanhSach = $('#tblDanhSach').DataTable({
+        "paging": true,
+        "autoWidth": false,
+        "searching": false,
+        "ordering": true,
+        "language": {
+
+            "decimal": "",
+            "emptyTable": "Danh sách trống",
+            "info": "Hiển thị _START_ đến _END_ trong _TOTAL_ kết quả",
+            "infoEmpty": "Showing 0 to 0 of 0 entries",
+            "infoFiltered": "(filtered from _MAX_ total entries)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Hiển thị _MENU_ kết quả",
+            "loadingRecords": "Loading...",
+            "processing": "Processing...",
+            "search": "Tìm kiếm nhanh: ",
+            "zeroRecords": "No matching records found",
+            "paginate": {
+                "first": "Đầu ",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            },
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            }
+        }
+
+    });
+
+    function DanhSach_binding() {
+        var _html = "";
+            tblDanhSach.clear().draw();
+            var aRows = [];
+            for (var i = 0; i < PhienKham.DanhSach.length; i++) {
+                var _item = PhienKham.DanhSach[i];
+                var _html = '<label class="id_phien_kham" data-id="' + _item.ID_PHIEN_KHAM + '">' + (i + 1) + '</label>';
+                aRows.push([
+                    _html,
+                    _item.TG_TAO_PHIEN,
+                    _item.BAC_SY_KHAM_TEN
+                ]);
+            }
+            tblDanhSach.rows.add(aRows).draw();
+    }
+
+    function ChiTiet_binding(pIdPhienPham) {
+        for (var i = 0; i < PhienKham.DanhSach.length; i++) {
+            var _item = PhienKham.DanhSach[i];
+            if (_item.ID_PHIEN_KHAM == pIdPhienPham) {
+                $('#tblChiTiet #lbl_ngaykham').html(_item.TG_TAO_PHIEN);
+                $('#tblChiTiet #lbl_tiepnhan').html(_item.NGUOI_TAO_PHIEN_TEN);
+                $('#tblChiTiet #lbl_bacsy').html(_item.BAC_SY_KHAM_TEN);
+                $('#tblChiTiet #lbl_lydo').html(_item.LY_DO_KHAM);
+                $('#tblChiTiet #lbl_hoibenh').html(_item.HOI_BENH);
+                $('#tblChiTiet #lbl_chandoan').html(_item.CHAN_DOAN);
+                $('#tblChiTiet #lbl_ghichu').html(_item.GHI_CHU);
+                return;
+            }
+        }
+    }
+
+    function BenhNhan_binding() {
+        $('#tblChiTiet #lbl_benhnhan').html(BenhNhan.TEN);
+        $('#tblChiTiet #lbl_dienthoai').html(BenhNhan.SO_DIEN_THOAI);
+    }
+
+    function Page_init() {
+        var _id = Utils.getParameterByName('id');
+        if (_id != null) {
+            PhienKham.ID_BENH_NHAN = _id;
+            PhienKham.lichsukham_find_01();
+            DanhSach_binding();
+            BenhNhan.ID_BENH_NHAN = _id;
+            BenhNhan.get();
+            BenhNhan_binding();
+        }
+
+    }
+
+    $(function () {
+        Page_init();
+
+        $('#tblDanhSach tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                tblDanhSach.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                var _id = $(this).find(".id_phien_kham").data('id');
+                ChiTiet_binding(_id);
+            }
+        });
+    })
+    
+</script>

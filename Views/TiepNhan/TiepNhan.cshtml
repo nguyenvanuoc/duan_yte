@@ -1,0 +1,316 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string loai = ViewBag.loai;
+}
+<br />
+<style>
+    #tblDanhSach > tbody > tr:hover{
+        cursor: pointer;
+        background-color:#0EB2D4;
+    }
+
+    #tblDanhSach > tbody tr.selected {
+        color: white;
+        background-color: #0EB2D4 !important; 
+    }
+</style>
+<div class="row" style="margin-top:10px;">
+    <div class="col-sm-3 sidebar">
+        @Html.Partial("LeftMenu")
+    </div>
+    <div class="col-sm-9">
+        <div class="row well well-sm FILTER" style="margin-bottom:5px">
+            <div class="form-group-sm col-md-2">
+                <label>Lọc bệnh nhân</label>
+                <select id="selLocDanhSach" class="form-control">
+                    <option value="0">Tất cả</option>
+                    <option value="A">Chưa khám</option>
+                    <option value="B">Đang khám</option>
+                    <option value="C">Chờ thanh toán</option>
+                    <option value="D">Hẹn khám</option>
+                    <option value="E">Đã khám</option>
+                </select>
+            </div>
+            <div class="form-group-sm col-md-4">
+                <label>Tìm theo tên hoặc số điện thoại</label>
+                <input type="text" class="form-control" id="txtTuKhoa" placeholder="Nhập từ khóa tìm kiếm" />
+            </div>
+            <div class="form-group-sm col-md-4 ">
+                <button type="button" class="btn btn-sm btn-primary" id="btnLoc"  style="margin-top:23px"><i class="glyphicon glyphicon-filter"></i> Lọc</button>
+                <button type="button" class="btn btn-sm btn-danger" id="btnHuyLoc"  style="margin-top:23px"><i class="glyphicon glyphicon-remove"></i> Hủy lọc</button>
+            </div>
+        </div>
+
+        <div class="row well well-sm ACTIONS" style="margin-bottom:5px">
+             <input type="hidden" id="hdfID" value="" />   
+            <button type="button" class="btn btn-success btn-sm" id="btnLamMoi"><i class="glyphicon glyphicon-refresh"></i> Làm mới</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnTaoMoi"><i class="glyphicon glyphicon-plus"></i> Thêm BN mới</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnTaoPhien"><i class="glyphicon glyphicon-plus"></i> Tạo phiên khám</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnTTBenhNhan"><i class="glyphicon glyphicon-info-sign"></i> TT bệnh nhân</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnXemLsKham"><i class="glyphicon glyphicon-bookmark"></i> Xem lịch sử khám</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnDatLichHen"><i class="glyphicon glyphicon-calendar"></i> Đặt lịch hẹn</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnYKhoa"><i class="glyphicon glyphicon-list-alt"></i> TT Y khoa</button>
+            <button type="button" class="btn btn-info btn-sm" id="btnTLST"><i class="glyphicon glyphicon-heart"></i> Thể lực/Sinh tồn</button>
+        </div>
+        <div class="row panel panel-primary" id="LIST">
+            <div class="panel-heading">Danh sách bệnh nhân</div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover table-columned" id="tblDanhSach">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">#</th>
+                            <th class="col-md-2">Họ tên</th>
+                            <th class="col-md-2">Số điện thoại</th>
+                            <th class="col-md-2">Ngày sinh</th>
+                            <th class="col-md-1">Trạng thái</th>
+                            <th class="col-md-1">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@if (true){Html.RenderPartial("~/Views/Shared/Modules/_IziModal.cshtml");}
+@if (true) { Html.RenderPartial("~/Views/Shared/Modules/_BootstrapDialog.cshtml"); }
+
+<link href="~/Assets/libs/datatable/css/dataTables.bootstrap.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="~/Assets/libs/datatable/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/Assets/libs/datatable/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="~/Assets/libs/datatable/js/fnAddTr.js"></script>
+<script type="text/javascript" src="~/Assets/PhongKham/PK_BENH_NHAN.js"></script>
+<script>
+    var BenhNhan = new PK_BENH_NHAN();
+    var url = "@Core.Constants.Config.GetBaseUrl()";
+    BenhNhan.URL = url;
+    
+    
+
+    var tblDanhSach = $('#tblDanhSach').DataTable({
+        "paging": true,
+        "autoWidth": false,
+        "searching": true,
+        "ordering": true,
+        "language": {
+
+            "decimal": "",
+            "emptyTable": "Danh sách trống",
+            "info": "Hiển thị _START_ đến _END_ trong _TOTAL_ kết quả",
+            "infoEmpty": "Showing 0 to 0 of 0 entries",
+            "infoFiltered": "(filtered from _MAX_ total entries)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Hiển thị _MENU_ kết quả",
+            "loadingRecords": "Loading...",
+            "processing": "Processing...",
+            "search": "Tìm kiếm nhanh: ",
+            "zeroRecords": "No matching records found",
+            "paginate": {
+                "first": "Đầu ",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            },
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            }
+        }
+
+    });
+
+    function BenhNhan_find() {
+        $('#hdfID').val('');
+        BenhNhan.ID_BENH_NHAN = '';
+        var pTRangThai = $('#selLocDanhSach').val();
+        var pTuKhoa = $('#txtTuKhoa').val();
+        BenhNhan.find_01(pTRangThai,pTuKhoa);
+
+        tblDanhSach.clear().draw();
+        var aRows = [];
+        var _html = '';
+        for (var i = 0; i < BenhNhan.DanhSach.length; i++) {
+            var _item = BenhNhan.DanhSach[i];
+
+            var _html = "";
+            _html += '<div class="btn-group dropup">';
+            _html += '	<button aria-expanded="false" data-toggle="dropdown" class="btn btn-sm btn-warning dropdown-toggle waves-effect waves-light" type="button"><span class="caret"><\/span><\/button>';
+            _html += '	<ul role="menu" class="dropdown-menu ACTIONS">';
+            _html += '		<li><a href="#" data-id="' + _item.ID_BENH_NHAN + '" class="btnXoa"><i class="glyphicon glyphicon-trash"><\/i> Xóa<\/a><\/li>';
+            _html += '		<li><a href="#" data-id="' + _item.ID_BENH_NHAN + '" class="btnSua"><i class="glyphicon glyphicon-pencil"><\/i> Sửa<\/a><\/li>';
+            _html += '		<li><a href="#" data-id="' + _item.ID_BENH_NHAN + '" class="btnKetThucKham"><i class="glyphicon glyphicon-pencil"><\/i> Kết thúc khám<\/a><\/li>';
+            _html += '	<\/ul>';
+            _html += '<\/div>';
+
+            var _trangthai = '';
+            switch (_item.TRANG_THAI) {
+                case 'A': _trangthai = 'Chưa khám'; break;
+                case 'B': _trangthai = 'Đang khám'; break;
+                case 'C': _trangthai = 'Đợi thanh toán'; break;
+                case 'D': _trangthai = 'Đang hẹn khám'; break;
+                case 'E': _trangthai = 'Đã khám'; break;
+                default: _trangthai = 'Unknown'; break;
+            }
+            aRows.push([
+                (i + 1),
+                _item.TEN,
+                _item.SO_DIEN_THOAI,
+                _item.NGAY_SINH.substring(0,10),
+                _trangthai,
+                _html
+            ]);
+        }
+        tblDanhSach.rows.add(aRows).draw();
+        Action_filter();
+    }
+
+    function Page_init() {
+        BenhNhan_find();
+        
+    }
+
+    function Action_filter() {
+        var _id = BenhNhan.ID_BENH_NHAN;
+        if(_id!=''){
+            $('#btnXemLsKham').show();
+            $('#btnTTBenhNhan').show();
+            $('#btnXemLsKham').show();
+            $('#btnTaoPhien').show();
+            $('#btnDatLichHen').show();
+            $('#btnYKhoa').hide();
+            $('#btnTLST').hide();
+        } else {
+            $('#btnXemLsKham').hide();
+            $('#btnTTBenhNhan').hide();
+            $('#btnXemLsKham').hide();
+            $('#btnTaoPhien').hide();
+            $('#btnDatLichHen').hide();
+            $('#btnYKhoa').hide();
+            $('#btnTLST').hide();
+        }
+
+        if (BenhNhan.TRANG_THAI == 'A' || BenhNhan.TRANG_THAI == 'D' || BenhNhan.TRANG_THAI == 'E') {
+            $('#btnTaoPhien').show();
+        } else {
+            $('#btnTaoPhien').hide();
+        }
+    }
+
+    function Page_reset() {
+        $('#hdfID').val('');
+        $('#txtTuKhoa').val('');
+        $('#selLocDanhSach').val('0');
+        BenhNhan = new PK_BENH_NHAN();
+        BenhNhan.URL = "@Core.Constants.Config.GetBaseUrl()";
+        tblDanhSach.$('tr.selected').removeClass('selected');
+    }
+
+    $(function () {
+        Page_init();
+
+        $('.ACTIONS').on('click', '#btnLamMoi', function () {
+            Page_reset();
+            BenhNhan_find();
+        });
+
+        $('.FILTER').on('click', '#btnHuyLoc', function () {
+            Page_reset();
+            BenhNhan_find();
+        });
+
+        $('.FILTER').on('click', '#btnLoc', function () {
+            $('#hdfID').val('');
+            tblDanhSach.$('tr.selected').removeClass('selected');
+            BenhNhan_find();
+        });
+
+        $('.ACTIONS').on('click', '#btnTaoMoi', function () {
+            var _url = 'BenhNhan';
+            var EccDialog1 = new ECC_DIALOG(Page_init);
+            var _dialog = EccDialog1.show('Thêm bệnh nhân mới', _url, '70%', '320', 'test1');
+        });
+
+        $('.ACTIONS').on('click', '#btnTaoPhien', function () {
+            var _url = 'PhienKham?id=' + BenhNhan.ID_BENH_NHAN;
+            var EccDialog1 = new ECC_DIALOG(Page_init);
+            var _dialog = EccDialog1.show('Tạo phiên khám', _url, '45%', '550', 'test1');
+        });
+
+        $('.ACTIONS').on('click', '#btnXemLsKham', function () {
+            var _url = 'LichSuKham?id=' + BenhNhan.ID_BENH_NHAN;
+            var EccDialog1 = new ECC_DIALOG(Page_init);
+            var _dialog = EccDialog1.show('Lịch sử khám', _url, '95%', '550', 'test1');
+        });
+
+        $('.ACTIONS').on('click', '#btnTTBenhNhan', function () {
+            var _url = 'ThongTinBenhNhan?id=' + BenhNhan.ID_BENH_NHAN;
+            var EccDialog1 = new ECC_DIALOG(Page_init);
+            var _dialog = EccDialog1.show('Thông tin bệnh nhân', _url, '60%', '400', 'test1');
+        });
+
+        $('#LIST').on('click', 'a.btnSua', function () {
+            var _url = 'BenhNhan?id=' + $(this).data('id');
+            var EccDialog1 = new ECC_DIALOG(Page_init);
+            var _dialog = EccDialog1.show('Sửa thông tin bệnh nhân', _url, '90%', '350', 'test1');
+        });
+
+        $('#LIST').on('click', 'a.btnXoa', function () {
+            var id = $(this).data('id');
+            var _confirm = confirm("Bạn có chắc chắn muốn xóa không?");
+            if (_confirm) {
+                var id = $(this).data('id');
+                BenhNhan.ID_BENH_NHAN = id;
+                var _rs = BenhNhan.delete();
+                if (_rs.CODE == 'SUC') {
+                    alert('Xóa thành công!');
+                    $('#hdfID').val('');
+                    BenhNhan.ID_BENH_NHAN = '';
+                    Action_filter();
+                    BenhNhan_find();
+                } else {
+                    alert('Lỗi: ' + _rs.MESSAGE);
+                }
+            }
+        });
+
+        $('#LIST').on('click', 'a.btnKetThucKham', function () {
+            var id = $(this).data('id');
+            var _confirm = confirm("Bạn có chắc chắn muốn Kết thúc khám cho bệnh nhân này không? \n Kết thúc khám: Hủy (khám, hẹn khám, thanh toán) ");
+            if (_confirm) {
+                var id = $(this).data('id');
+                BenhNhan.ID_BENH_NHAN = id;
+                var _rs = BenhNhan.finish();
+                if (_rs.CODE == 'SUC') {
+                    alert('Kết thúc khám thành công!');
+                    $('#hdfID').val('');
+                    Action_filter();
+                    BenhNhan_find();
+                } else {
+                    alert('Lỗi: ' + _rs.MESSAGE);
+                }
+            }
+        });
+
+        $('#LIST #tblDanhSach tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                BenhNhan.ID_BENH_NHAN = '';
+            }
+            else {
+                tblDanhSach.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                var _id = $(this).find(".btnSua").data('id');
+                BenhNhan.ID_BENH_NHAN = _id;
+                BenhNhan.get();
+            }
+            Action_filter();
+        });
+    })
+
+
+    
+</script>
