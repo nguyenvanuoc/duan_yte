@@ -4,51 +4,48 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row"  style="margin-top:10px;">
-    <div class="col-sm-3 col-md-2" style="padding-right:0px !important; padding-left:10px !important;">
-        @Html.Partial("Leftmenu")
-    </div>
-    <div class="col-sm-9 col-md-10 ">
-        <br />
-        <div class="row">
-            <div class="col-md-12">
 
-                <div class="col-md-7 col-lg-offset-2">
-                    <div class="form-group">
-                        <label class="control-label col-md-3" style="font-weight:normal !important; float:left !important; margin-top:5px; ">
-                            Mật khẩu cũ
-                        </label>
-                        <div class="controls col-md-9" style="margin-bottom: 10px;">
-                            <input class="input-md  textinput textInput form-control" id="txtOldPas"
-                                   placeholder="Thông tin mật khẩu cũ" type="password" />
-                        </div>
+<div class="sidebar-menu">
+    @Html.Partial("Leftmenu")
+</div>
+<div class="main-content ">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="col-md-7 col-lg-offset-2">
+                <div class="form-group">
+                    <label class="control-label col-md-3" style="font-weight:normal !important; float:left !important; margin-top:5px; ">
+                        Mật khẩu cũ
+                    </label>
+                    <div class="controls col-md-9" style="margin-bottom: 10px;">
+                        <input class="input-md  textinput textInput form-control" id="txtOldPas"
+                               placeholder="Thông tin mật khẩu cũ" type="password" />
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3" style="font-weight:normal !important; float:left !important; margin-top:5px; ">
-                            Mật khẩu mới
-                        </label>
-                        <div class="controls col-md-9" style="margin-bottom: 10px;">
-                            <input class="input-md  textinput textInput form-control" id="txtPas"
-                                   placeholder="Mật khẩu mới" type="password" />
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" style="font-weight:normal !important; float:left !important; margin-top:5px; ">
+                        Mật khẩu mới
+                    </label>
+                    <div class="controls col-md-9" style="margin-bottom: 10px;">
+                        <input class="input-md  textinput textInput form-control" id="txtPas"
+                               placeholder="Mật khẩu mới" type="password" />
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3" style="font-weight:normal !important; float:left !important; margin-top:5px; ">
-                            Xác nhận
-                        </label>
-                        <div class="controls col-md-9" style="margin-bottom: 10px;">
-                            <input class="input-md  textinput textInput form-control" id="txtRePas"
-                                   placeholder="Gõ lại mật khẩu mới" type="password" />
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3" style="font-weight:normal !important; float:left !important; margin-top:5px; ">
+                        Xác nhận
+                    </label>
+                    <div class="controls col-md-9" style="margin-bottom: 10px;">
+                        <input class="input-md  textinput textInput form-control" id="txtRePas"
+                               placeholder="Gõ lại mật khẩu mới" type="password" />
                     </div>
-                    <div class="form-group" style="margin-top:10px; margin-right:9px; box-sizing:content-box; float:right;">
-                        <button type="button" id="doimatkhau" class="btn btn-default"><i class="fa fa-plus  "></i> Đổi mật khẩu</button>
-                    </div>
+                </div>
+                <div class="form-group" style="margin-top:10px; margin-right:9px; box-sizing:content-box; float:right;">
+                    <button type="button" id="doimatkhau" class="btn btn-default"><i class="fa fa-plus  "></i> Đổi mật khẩu</button>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <script type="text/javascript">

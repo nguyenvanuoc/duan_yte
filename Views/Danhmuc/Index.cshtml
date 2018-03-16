@@ -5,9 +5,12 @@
 }
 
 
-<div class="col-sm-3 col-md-2 sidebar" style="margin-top:5px;">
+<div class="sidebar-menu">
     @Html.Partial("Leftmenu")
 </div>
-<div class="col-sm-9 col-md-10">
+<div class="main-content">
     @Html.Partial("InforPag")
 </div>
+<script type="text/javascript">
+	$(".navbar-collapse  .navbar-nav > li").setActive("1");
+</script>

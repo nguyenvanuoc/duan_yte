@@ -53,7 +53,7 @@
 </div>
 <div class="dashboard-canvas">
     <div class="row">
-        <div class="col-sm-8 col-xs-12">
+        <div class="col-sm-6 col-xs-12">
             <div class="panel">
                 <div class="panel-heading">
                     <div class="pull-left title">
@@ -78,7 +78,7 @@
 
             </div>
         </div>
-        <div class="col-sm-4 col-xs-12">
+        <div class="col-sm-6 col-xs-12">
             <div class="panel">
                 <div class="panel-heading">
                     <div class="title">
@@ -88,7 +88,7 @@
                     
                 </div>
                 <div class="panel-body">
-                    <div id="chart-circle" style="height:320px;"></div>
+                    <div id="chart-line" style="height:320px;"></div>
                 </div>
 
             </div>
@@ -98,68 +98,63 @@
 </div>
 <script>
     $(document).ready(function () {
-        $("#chart-circle").highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie',
-                marker: {
-                    symbol: 'square'
-                },
-                
-            },
-            title: {
-                text: null,
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    innerSize: '60%',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true,
+        $("#chart-line").highcharts({
 
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                
-                data: [{
-                    name: 'Y đa khoa',
-                    y: 56.33,
-                    color:"#d1d5dd",
-                }, {
-                    name: 'Y tế cộng đồng',
-                    y: 24.03,
-                    color:"#3c8cbb",
-                }, {
-                    name: 'Y học dân tộc ',
-                    y: 10.38,
-                    color:"#f46954",
-                }, {
-                    name: 'Răng hàm mắt',
-                    y: 4.77,
-                    color:"#06bfee",
-                }, {
-                    name: 'Tai mũi họng',
-                    y: 0.91,
-                    color:"#00a55b",
-                }, {
-                    name: 'Nhi',
-                    y: 0.2,
-                    color:"#f29b1a",
+                title: {
+                    text:null
+                },
+
+                subtitle: {
+                    text: null
+                },
+                xAxis: {
+                    categories: [
+                        'T1',
+                        'T2',
+                        'T3'
+                    ],
+                    crosshair: true
+                },
+                yAxis: {
+                    title: {
+                        text: null
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                },
+
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        }
+                    }
+                },
+
+                series: [{
+                    name: 'Khách hàng',
+                    data: [43934, 52503, 57177]
                 }],
-            }]
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+
+            });
         });
         $("#chart-bar").highcharts({
             chart: {

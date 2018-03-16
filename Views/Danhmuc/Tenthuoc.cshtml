@@ -5,130 +5,114 @@
 
     string loai = ViewBag.loai;
 }
-<br />
-
-<div class="row" style="margin-top:10px;">
-    <div class="col-sm-3 col-md-2">
-        @Html.Partial("LeftMenu");
+<div class="sidebar-menu">
+    @Html.Partial("LeftMenu");
+</div>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="input-group">
+                <input id="noidung" class="form-control"  
+                       placeholder="Nhạp tên thuốc để tìm kiếm" type="text" />
+                <span class="input-group-btn">
+                    <button id="timkiem" type="button" tootip="Tìm kiếm" class="btn btn-warning" name="" 
+                            data-toggle="tooltip" title="Tìm kiếm theo tên thuốc">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-9 col-md-10 ">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="input-group">
-                            <input id="noidung" class="form-control"  
-                                   placeholder="Nhạp tên thuốc để tìm kiếm" type="text" />
-                            <span class="input-group-btn">
-                                <button id="timkiem" type="button" tootip="Tìm kiếm" class="btn btn-default" name="" 
-                                        data-toggle="tooltip" title="Tìm kiếm theo tên thuốc">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-sm-12 col-md-12" style="padding:0px !important; margin-top:6px;">
-                    <div class="form-group">
-                        <button type="button" class="btn btn-default" hotkey="F2" onclick="return ThemLoaiThuoc('');">
-                            <i class="glyphicon glyphicon-plus"></i> Thêm mới tên thuốc
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="dsLoaiThuoc" style="width:100%; height:380px; border: 1px dotted #808080 "
-                     class="slickgrid-word-wrap">
-                </div>
-            </div>
-        </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-default" hotkey="F2" onclick="return ThemLoaiThuoc('');">
+            <i class="glyphicon glyphicon-plus"></i> Thêm mới tên thuốc
+        </button>
+    </div>
+    </div>
+    <div id="dsLoaiThuoc" style="width:100%; height:380px; border: 1px dotted #808080 "
+        class="slickgrid-word-wrap">
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <form>
-            <div class="modal bootstrap-dialog type-primary fade size-normal in" id="myModal" role="dialog" aria-labelledby="Thông tin chức vụ" data-backdrop="static" data-keyboard="false" aria-hidden="true">
-                <div class="modal-dialog" style="width: 70%;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title">Thông tin loại thuốc</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container" style="max-width: 100%; height:99%;">
-                                <div class="row">
+<form>
+    <div class="modal bootstrap-dialog type-primary fade size-normal in" id="myModal" role="dialog" aria-labelledby="Thông tin chức vụ" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog" style="width: 70%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Thông tin loại thuốc</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="max-width: 100%; height:99%;">
+                        <div class="row">
 
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 10px;">
-                                                <label class="control-label col-sm-3 col-md-3 col-lg-3" style="font-weight:normal;  margin-top:5px;  padding:2px;">
-                                                    Nhóm thuốc
-                                                </label>
-                                                <div class="col-md-9 col-lg-9 col-sm-9">
-                                                    <select class="form-control" id="Nhom"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 10px;">
-                                                <label class="control-label col-sm-3 col-md-3 col-lg-3" style="font-weight:normal;  margin-top:5px;  padding:2px;">
-                                                    Tên thuốc
-                                                </label>
-                                                <div class="col-md-9 col-lg-9 col-sm-9">
-                                                    <input class="input-md  textinput form-control" id="Ten" autofocus
-                                                           placeholder="Tên loại thốc" type="text" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 10px;">
-                                                <label class="control-label col-sm-3 col-md-3 col-lg-3" style="font-weight:normal;  margin-top:5px;  padding:2px;">
-                                                    Đơn vị tính
-                                                </label>
-                                                <div class="col-md-9 col-lg-9 col-sm-9">
-                                                    <select class="form-control" id="dvt"></select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 10px;">
-                                                <label class="control-label col-sm-3 col-md-3 col-lg-3" style="font-weight:normal;  margin-top:5px;  padding:2px;">
-                                                    Mô tả
-                                                </label>
-                                                <div class="col-md-9 col-lg-9 col-sm-9">
-                                                    <textarea id="ndungykien" rows="3" style="height:50px;"
-                                                              class="form-control input-sm textInput" placeholder="Thông tin ghi chú"></textarea>
-                                                </div>
-                                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 10px;">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" style="font-weight:normal;  margin-top:5px;  padding:2px;">
+                                            Nhóm thuốc
+                                        </label>
+                                        <div class="col-md-9 col-lg-9 col-sm-9">
+                                            <select class="form-control" id="Nhom"></select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div id="dsTPThuoc" style="width:100%; height:380px; border: 1px dotted #808080 "
-                                                     class="slickgrid-word-wrap">
-                                                </div>
-                                            </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 10px;">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" style="font-weight:normal;  margin-top:5px;  padding:2px;">
+                                            Tên thuốc
+                                        </label>
+                                        <div class="col-md-9 col-lg-9 col-sm-9">
+                                            <input class="input-md  textinput form-control" id="Ten" autofocus
+                                                   placeholder="Tên loại thốc" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 10px;">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" style="font-weight:normal;  margin-top:5px;  padding:2px;">
+                                            Đơn vị tính
+                                        </label>
+                                        <div class="col-md-9 col-lg-9 col-sm-9">
+                                            <select class="form-control" id="dvt"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 10px;">
+                                        <label class="control-label col-sm-3 col-md-3 col-lg-3" style="font-weight:normal;  margin-top:5px;  padding:2px;">
+                                            Mô tả
+                                        </label>
+                                        <div class="col-md-9 col-lg-9 col-sm-9">
+                                            <textarea id="ndungykien" rows="3" style="height:50px;"
+                                                      class="form-control input-sm textInput" placeholder="Thông tin ghi chú"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="dsTPThuoc" style="width:100%; height:380px; border: 1px dotted #808080 "
+                                             class="slickgrid-word-wrap">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" id="saveFile" class="btn btn-default"><i class="fa fa-plus  "></i>Lưu lại và thêm mới</button>
-                            <button type="button" id="refesh" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Lưu lại và đóng</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                <i class="glyphicon glyphicon-share-alt"></i> Đóng lại
-                            </button>
-                        </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" id="saveFile" class="btn btn-default"><i class="fa fa-plus  "></i>Lưu lại và thêm mới</button>
+                    <button type="button" id="refesh" class="btn btn-default"><i class="glyphicon glyphicon-refresh"></i> Lưu lại và đóng</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-share-alt"></i> Đóng lại
+                    </button>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
+
 
 <script type="text/javascript">
     var b_so_id = "";

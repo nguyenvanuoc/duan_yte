@@ -5,24 +5,19 @@
 
     string loai = ViewBag.loai;
 }
-<br />
+<div class="sidebar-menu">
+    @Html.Partial("LeftMenu");
+</div>
+<div class="main-content ">
+    
+    <button type="button" class="btn btn-success" hotkey="F2" onclick="return ThemTonGiao('');">
+        <i class="glyphicon glyphicon-plus icon"></i> Thêm mới tôn giáo (F2)
+    </button>
 
-<div class="row" style="margin-top:10px;">
-    <div class="col-sm-3 col-md-2">
-        @Html.Partial("LeftMenu");
-    </div>
-    <div class="col-sm-9 col-md-10 ">
-        <br />
-        <button type="button" class="btn btn-default" hotkey="F2" onclick="return ThemTonGiao('');">
-            <i class="glyphicon glyphicon-plus"></i> Thêm mới tôn giáo (F2)
-        </button>
-        <br />
-        <br />
-        <div class="row">
-            <div class="col-md-12">
-                <div id="dsTonGiao" style="width:100%; height:380px; border: 1px dotted #808080 "
-                     class="slickgrid-word-wrap">
-                </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="dsTonGiao" style="width:100%; height:380px; border: 1px dotted #808080 "
+                 class="slickgrid-word-wrap">
             </div>
         </div>
     </div>
