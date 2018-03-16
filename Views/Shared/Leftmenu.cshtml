@@ -45,7 +45,7 @@
 
     @foreach (DataRow rw in tableDM.Rows)
     {
-        <a href="@Url.Action(rw["url"].ToString(), rw["Modun"].ToString())" class="list-group-item">
+        <a href="@Url.Action(rw["url"].ToString(), rw["Modun"].ToString())" class="item">
             <i class="@rw["icon"]"></i> @rw["ten"].ToString()
         </a>
     }
